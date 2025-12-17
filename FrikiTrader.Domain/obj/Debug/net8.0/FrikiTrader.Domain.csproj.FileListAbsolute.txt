@@ -1,0 +1,11 @@
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Domain\bin\Debug\net8.0\FrikiTrader.Domain.deps.json
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Domain\bin\Debug\net8.0\FrikiTrader.Domain.dll
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Domain\bin\Debug\net8.0\FrikiTrader.Domain.pdb
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Domain\obj\Debug\net8.0\FrikiTrader.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Domain\obj\Debug\net8.0\FrikiTrader.Domain.AssemblyInfoInputs.cache
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Domain\obj\Debug\net8.0\FrikiTrader.Domain.AssemblyInfo.cs
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Domain\obj\Debug\net8.0\FrikiTrader.Domain.csproj.CoreCompileInputs.cache
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Domain\obj\Debug\net8.0\FrikiTrader.Domain.dll
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Domain\obj\Debug\net8.0\refint\FrikiTrader.Domain.dll
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Domain\obj\Debug\net8.0\FrikiTrader.Domain.pdb
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Domain\obj\Debug\net8.0\ref\FrikiTrader.Domain.dll

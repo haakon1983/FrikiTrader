@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36408.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrikiTrader.Domain", "FrikiTrader.Domain\FrikiTrader.Domain.csproj", "{5BE810CD-88E9-4A27-AEF4-4A9C694055EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrikiTrader.Infraestructure", "FrikiTrader.Infraestructure\FrikiTrader.Infraestructure.csproj", "{8E743F10-E3CC-47B3-BB85-20BDB33A1F01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrikiTrader.API", "FrikiTrader.API\FrikiTrader.API.csproj", "{962F8497-BA49-453A-8F31-BF55B9E6059B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrikiTrader.Aplication", "FrikiTrader.Aplication\FrikiTrader.Aplication.csproj", "{5A75EFB2-6499-4C3B-AEB7-9C089762D50B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BE810CD-88E9-4A27-AEF4-4A9C694055EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BE810CD-88E9-4A27-AEF4-4A9C694055EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BE810CD-88E9-4A27-AEF4-4A9C694055EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BE810CD-88E9-4A27-AEF4-4A9C694055EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E743F10-E3CC-47B3-BB85-20BDB33A1F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E743F10-E3CC-47B3-BB85-20BDB33A1F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E743F10-E3CC-47B3-BB85-20BDB33A1F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E743F10-E3CC-47B3-BB85-20BDB33A1F01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{962F8497-BA49-453A-8F31-BF55B9E6059B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{962F8497-BA49-453A-8F31-BF55B9E6059B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{962F8497-BA49-453A-8F31-BF55B9E6059B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{962F8497-BA49-453A-8F31-BF55B9E6059B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A75EFB2-6499-4C3B-AEB7-9C089762D50B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A75EFB2-6499-4C3B-AEB7-9C089762D50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A75EFB2-6499-4C3B-AEB7-9C089762D50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A75EFB2-6499-4C3B-AEB7-9C089762D50B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FF59F307-697B-48A2-9CAE-82910AF5D160}
+	EndGlobalSection
+EndGlobal

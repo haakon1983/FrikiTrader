@@ -1,0 +1,17 @@
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\bin\Debug\net8.0\FrikiTrader.Infraestructure.deps.json
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\bin\Debug\net8.0\FrikiTrader.Infraestructure.runtimeconfig.json
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\bin\Debug\net8.0\FrikiTrader.Infraestructure.dll
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\bin\Debug\net8.0\FrikiTrader.Infraestructure.pdb
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\bin\Debug\net8.0\FrikiTrader.Domain.dll
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\bin\Debug\net8.0\FrikiTrader.Domain.pdb
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\obj\Debug\net8.0\FrikiTrader.Infraestructure.csproj.AssemblyReference.cache
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\obj\Debug\net8.0\FrikiTrader.Infraestructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\obj\Debug\net8.0\FrikiTrader.Infraestructure.AssemblyInfoInputs.cache
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\obj\Debug\net8.0\FrikiTrader.Infraestructure.AssemblyInfo.cs
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\obj\Debug\net8.0\FrikiTrader.Infraestructure.csproj.CoreCompileInputs.cache
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\obj\Debug\net8.0\FrikiTra.98098D57.Up2Date
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\obj\Debug\net8.0\FrikiTrader.Infraestructure.dll
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\obj\Debug\net8.0\refint\FrikiTrader.Infraestructure.dll
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\obj\Debug\net8.0\FrikiTrader.Infraestructure.pdb
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\obj\Debug\net8.0\FrikiTrader.Infraestructure.genruntimeconfig.cache
+C:\Users\haako\source\repos\FrikiTrader\FrikiTrader.Infraestructure\obj\Debug\net8.0\ref\FrikiTrader.Infraestructure.dll
