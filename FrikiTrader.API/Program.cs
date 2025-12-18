@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using FrikiTrader.Infraestructure;
+using FrikiTrader.Aplication.Interfaces;
+using FrikiTrader.Aplication.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 

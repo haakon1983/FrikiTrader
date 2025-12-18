@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FrikiTrader.Infraestructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251217115351_InitialMySQLMigration")]
+    [Migration("20251218134633_InitialMySQLMigration")]
     partial class InitialMySQLMigration
     {
         /// <inheritdoc />

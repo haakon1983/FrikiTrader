@@ -163,14 +163,16 @@ namespace FrikiTrader.Infraestructure.Migrations
                 values: new object[,]
                 {
                 // Usamos una fecha UTC para ser consistentes con la propiedad BaseEntity
-                    { 1, DateTime.UtcNow, "Comics y Manga", "Editorial america o japonesa" },
+                    { 1, DateTime.UtcNow, "Comics y Manga", "Editorial americana o japonesa" },
                     { 2, DateTime.UtcNow, "Figuras y muñecos", "Figuras de acción, estatuas y Funko Pops" },
-                    { 3, DateTime.UtcNow, "HVideojuegos", "Juegos y consolas antiguas" },
+                    { 3, DateTime.UtcNow, "Videojuegos", "Juegos y consolas antiguas, Nes, Megadrive..." },
                     { 4, DateTime.UtcNow, "Juegos de Mesa", "Juegos de mesa, rol, expansiones" },
                     { 5, DateTime.UtcNow, "Juegos de cartas", "TCG (Magic, Pokemon, One piece), LCG (LOTR, Arkham horror..., " },
-                    { 6, DateTime.UtcNow, "Wargames", "Games-Workshop (warahammer 40k, Age of Sigmar, Kill-Team..)" }
-                });
+                    { 6, DateTime.UtcNow, "Wargames", "Games-Workshop (warhammer 40k, Age of Sigmar, Kill-Team..), Infinity, Bolt..." },
+                    { 7, DateTime.UtcNow, "Merchandising", "Tazas, camisetas, otros objetos" }
+            });
         }
+        
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
