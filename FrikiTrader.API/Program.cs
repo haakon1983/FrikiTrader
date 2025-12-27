@@ -44,6 +44,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<ApplicationDbContext>("MySQL-Database");
+builder.Services.AddScoped<IPasswordService, PasswordService>();
 
 var app = builder.Build();
 
