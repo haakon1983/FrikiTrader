@@ -10,5 +10,6 @@ namespace FrikiTrader.Aplication.Interfaces
     public interface IAuthService
     {
         Task<bool> Registrar(UserRegisterDto dto);
+        Task<string?> Login(UserLoginDto dto);
     }
 }

@@ -11,7 +11,7 @@ namespace FrikiTrader.Aplication.DTOs
     {
         [Required(ErrorMessage = "El nombre de usuario es obligatorio")]
         [StringLength(50)]
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         [Required(ErrorMessage = "El correo electrónico es obligatorio")]
         [EmailAddress(ErrorMessage = "El correo electrónico no es válido")]

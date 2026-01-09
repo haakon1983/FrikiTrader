@@ -35,5 +35,24 @@ namespace FrikiTrader.API.Controllers
             }
         }
 
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginDto dto)
+        {
+            try
+            {
+                var token = await _authService.Login(dto);
+                if (token == null)
+                {
+                    return Unauthorized(new { message = "Email o contraseña incorrectos." });
+                }
+                return Ok(new { token });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (not shown here for brevity)
+                return StatusCode(500, new { message = "Ocurrió un error al procesar el inicio de sesión.", details = ex.Message });
+            }
+        }
+
     }
 }
