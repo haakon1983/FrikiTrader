@@ -8,24 +8,24 @@ namespace FrikiTrader.Domain
 {
     public class Product: BaseEntity
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         // Campo para el valor INT del Enum
-        public int Condition { get; set; }
-        public string ImageUrl { get; set; }
+        public ProductCondition Condition { get; set; }
+        public string? ImageUrl { get; set; }
 
         // --- Claves foráneas y propiedades de navegación ---
         //FK a User (Relación 1:N)
         public int UserId { get; set; }
-        public User User { get; set; } // Propiedad de navegación
+        public User User { get; set; } = null!; // Propiedad de navegación
        
         //FK a Category (Relación 1:N)
         public int CategoryId { get; set; }
-        public Category Category { get; set; } // Propiedad de navegación
+        public Category Category { get; set; } = null!; // Propiedad de navegación
 
         // Propiedad de Navegación (Relación 1:N con ChatConversation)
         // Un Producto puede ser el contexto de muchas conversaciones de chat
-        public ICollection<ChatConversation> Conversations { get; set; }
+        public ICollection<ChatConversation> Conversations { get; set; } = new List<ChatConversation>();
     }
 }
