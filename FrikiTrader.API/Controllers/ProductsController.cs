@@ -58,10 +58,17 @@ namespace FrikiTrader.API.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] ProductCreateDto dto)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var product = await _productService.GetByIdAsync(id);
+            if (product == null)
+            {
+                return NotFound(new { message = "Producto no encontrado." });
+            }
+            if(product.UserId != userId)
+            {
+                return Forbid();
+            }
             var success = await _productService.UpdateAsync(id, dto, userId);
-            if (!success) return Forbid();
-
-            return NoContent();
+            return success ? NoContent() : BadRequest();
 
         }
 
@@ -69,9 +76,17 @@ namespace FrikiTrader.API.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var product = await _productService.GetByIdAsync(id);
+            if (product == null)
+            {
+                return NotFound(new { message = "Producto no encontrado." });
+            }
+            if (product.UserId != userId)
+            {
+                return Forbid();
+            }
             var success = await _productService.DeleteAsync(id, userId);
-            if (!success) return Forbid();
-            return NoContent();
+            return success ? NoContent() : BadRequest();
         }
 
     }

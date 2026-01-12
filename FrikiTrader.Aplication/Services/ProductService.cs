@@ -43,21 +43,25 @@ namespace FrikiTrader.Aplication.Services
 
         public async Task<Product?> GetByIdAsync(int id)
         {
-            return await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Products
+                .Include(p => p.User)       //Trae datos del usuario
+                .Include(p => p.Category)   //Trae datos de la categoria
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<bool> UpdateAsync(int id, ProductCreateDto dto, int userId)
         {
             var product = await _context.Products.FindAsync(id);
+            //Validamos: Primero, que el producto exista; Segundo, que el userId del token coincida con el producto.
             if (product == null || product.UserId != userId) return false;
             
             product.Title = dto.Title;
             product.Description = dto.Description;
             product.Price = dto.Price;
             product.Condition = (ProductCondition)dto.Condition;
-            product.ImageUrl = dto.ImageUrl;
+            product.ImageUrl = dto.ImageUrl ?? product.ImageUrl;
             product.CategoryId = dto.CategoryId;
-            _context.Products.Update(product);
+            //_context.Products.Update(product);
             return await _context.SaveChangesAsync() > 0;
         }
 
