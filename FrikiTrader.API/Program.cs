@@ -75,6 +75,15 @@ builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder .Services.AddCors(options =>
+{
+    options.AddPolicy("FrikiPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200") //Angular, URL por defecto
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -92,6 +101,8 @@ app.UseAuthorization();
 app.MapHealthChecks("/health");
 
 app.UseRouting();
+
+app.UseCors("FrikiPolicy");
 
 app.UseAuthentication();
 
