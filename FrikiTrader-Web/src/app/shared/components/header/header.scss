@@ -1,0 +1,125 @@
+$header-bg: #4d4c4ce0;
+$primary-color: #f7aa04;
+$text-main: #f7b604;
+$bg-light: #f3f4f6;
+
+.main-header {
+    background-color: $header-bg;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    height: 70px;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+//Estilo del logo
+.brand{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .brand-icon{
+        font-size: 1.8rem;
+        color: $primary-color;
+    }
+    .brand-text{
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: $text-main;
+        letter-spacing: -0.5px;
+    }
+}
+
+//Estilo del buscador
+.search-bar {
+    background-color: $bg-light;
+    border-radius: 50px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-width: 300px;
+
+    .search-icon {
+        color: $primary-color;
+        margin-right: 10px;
+    }
+
+    .search-input {
+        border: none;
+        background: transparent;
+        outline: none;
+        width: 100%;
+        font-size: 0.95rem;
+        color: white;
+
+        &::placeholder {
+            color: #9ca3af;
+        }
+    }
+}
+
+//Estilo de Iconos y Avatar
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .btn-icon {
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        color:  white;
+        cursor: pointer;
+        padding: 5px;
+        transition: color 0.2s;
+
+        &:hover {
+            color: $primary-color;
+        }
+    }
+
+    .avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 2px solid $primary-color;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    } 
+}
+
+//Estilo para en botón de vender
+.btn-vender {
+    background-color: $primary-color;
+    color: $header-bg;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    margin-right: 15px;
+
+    i {
+        font-size: 1.2rem;
+    }
+
+    &:hover {
+        background-color: lighten($primary-color, 10%);
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+    }
+}

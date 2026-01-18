@@ -1,0 +1,62 @@
+$background-color-box: #4d4c4ce0;
+$text-color-primary: #f7b604;
+$icon-color-primary: #f7aa04;
+$text-muted: #9ca3af;
+
+.main-footer {
+    width: 100%;
+}
+
+//Estilos de la barra inferior (movil)
+.mobile-tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;    
+    right: 0;
+    height: 65px;
+    background-color: $background-color-box;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 0255, 0.05);
+    z-index: 1000;
+    padding-bottom: env(safe-area-inset-bottom); //Para iphones modernos
+
+    .tab-item {
+        text-decoration: none;
+        color: $text-muted;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: all 0.2s ease;
+
+        i {
+            font-size: 1.4rem;
+        }
+
+        span {
+            font-size: 0.7rem;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        //Cuando la ruta está activa o pasamos el mouse por encima
+        &.hover, &.active {
+            color: $text-color-primary;
+            transform: translateY(-2px); 
+        }
+    }
+}
+
+//Estilos delfooter de Escritorio
+.desktop-footer {
+    background-color: $background-color-box;
+    color: $text-muted;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+    .brand-accent {
+        color: $icon-color-primary;
+        font-weight: bold;
+    }
+}
