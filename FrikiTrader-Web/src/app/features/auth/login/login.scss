@@ -1,0 +1,123 @@
+@use 'variables' as *;
+@use 'sass:color';
+// @use '../../../../assets/styles/variables' as *;
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+  background-color: $ft-bg-white;
+  padding: 20px;
+}
+
+.auth-card {
+  background: $ft-dark-grey;
+  width: 100%;
+  max-width: 400px;
+  border-radius: $ft-border-radius;
+  border: none;
+  box-shadow: $ft-card-shadow;
+  padding: 2.5rem;
+  color: $ft-gold;
+}
+
+.brand-icon {
+  font-size: 3.5rem;
+  color: $ft-gold;
+}
+
+.brand-name {
+  font-weight: 800;
+  color: $ft-text-logo;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.text-muted {
+  color: $ft-grey-muted !important;
+  font-size: 0.9rem;
+}
+
+.custom-input {
+  background-color: $ft-bg-white;
+  border: 1px solid transparent;
+  padding: 12px;
+  border-radius: 10px;
+  color: $ft-text-dark;
+
+  &:focus {
+    border-color: $ft-gold;
+    box-shadow: 0 0 0 0.2rem rgba($ft-gold, 0.2);
+    outline: none;
+  }
+}
+
+.btn-auth {
+  background-color: $ft-dark-grey;
+  color: $ft-gold;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: $ft-dark-grey;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-primary {
+  background-color: $ft-gold;
+  color: $ft-dark-grey;
+  border: none;
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 1rem;
+  cursor: pointer ;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: color.scale($ft-gold, $lightness: -10%);
+    transform: translateY(-1px);
+  }
+}
+
+.text-gold-link {
+  color: $ft-gold;
+  font-weight: 600;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $ft-gold;
+  }
+}
+
+hr {
+  border-top: 1px solid $ft-grey-muted;
+  opacity: 0.2;
+}
+
+.text-gold {
+  color: $ft-bg-white !important;
+  padding: 5px;
+  
+  &:hover {
+    background-color: $ft-dark-grey;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+
