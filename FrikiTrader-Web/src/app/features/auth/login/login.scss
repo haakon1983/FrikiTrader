@@ -91,7 +91,7 @@
 }
 
 .text-gold-link {
-  color: $ft-bg-white;
+  color: $ft-gold;
   font-weight: 600;
   transition: color 0.2s;
 
@@ -118,6 +118,18 @@ hr {
   &:active {
     transform: translateY(0);
   }
+}
+
+.alert-success-custom {
+    background-color: rgba($ft-gold, 0.15);
+    border: 1px solid $ft-gold;
+    color: $ft-gold;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    text-align: center;
+    font-weight: 500;
 }
 
 

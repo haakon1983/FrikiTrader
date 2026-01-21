@@ -6,7 +6,7 @@
             <p class ="brand-tagline">Regístrate para comenzar a intercambiar productos</p>
         </div>
 
-        <form class="auth-form">
+        <form class="auth-form" (ngSubmit)="onSubmit()">
             <div class="mb-3">
                 <label for="username">Nombre de Usuario</label>
                 <input type="text" class="custom-input" id="username" placeholder="Ingresa tu nombre de usuario">
@@ -22,14 +22,27 @@
                 <input type="password" class="custom-input" id="password" placeholder="*****************">
             </div>
 
-            <div class="avatar-upload mb-4">
-                <div class="avatar-preview">
-                    <i class="bi bi-person-circle" id="avatar-icon"></i>
+            <div class="avatar-section mb-4">
+                <label>Foto de Perfil (Opcional)</label>
+                <div class="d-flex align-items-center gap-3 mt-2">
+                    <div class="avatar-preview">
+                        <img *ngIf="avatarUrl" [src]="avatarUrl" class="img-fluid rounded-circle-custom">
+                        <i *ngIf="!avatarUrl" class="bi bi-person-fill"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <label for="avatar-input" class="btn-outline-gold">
+                            <i class="bi bi-upload me-2"></i>
+                            {{ avatarUrl ? 'Cambiar imagen' : 'Seleccionar imagen' }}
+                        </label>
+                        <input 
+                            type="file" 
+                            id="avatar-input" 
+                            #avatarInput
+                            hidden 
+                            accept="image/*"
+                            (change)="onFileSelected($event)">
+                    </div>
                 </div>
-                <label for="avatar-input" class="btn-avatar-select">
-                    <i class="bi bi-camera-fill"></i> Elegir Avatar
-                </label>
-                <input type="file" id="avatar-input" accept="image/*" hidden>
             </div>
 
             <button type="submit" class="btn-primary">Crear cuenta</button>
