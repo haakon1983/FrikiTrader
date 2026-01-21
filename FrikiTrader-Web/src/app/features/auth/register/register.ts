@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from "@angular/router";
 import { Router } from "@angular/router";
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../shared/services/auth/auth';
 
 @Component({
   selector: 'app-register',
@@ -11,15 +12,21 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './register.scss',
 })
 export class Register {
+  username = '';
+  email = '';
+  password = ''
   avatarUrl: string | null = null;
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      if (!file.type.startsWith('image/')) {
-        alert('Por favor, selecciona un archivo de imagen válido.');
-        return;
-      }
+  selectedFile: File | null = null;
+
+    constructor (
+      private router: Router, 
+      private authService: AuthService
+    ) {}
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file; // Guardamos el archivo
       const reader = new FileReader();
       reader.onload = () => {
         this.avatarUrl = reader.result as string;
@@ -28,11 +35,24 @@ export class Register {
     }
   }
 
-  constructor (private router: Router) {}
-
   onSubmit(): void {
-    // Aquí iría la lógica de registro real (validación, envío al servidor, etc.)
-    // Por ahora, simplemente redirigimos al login con un parámetro de éxito.
-    this.router.navigate(['/login'], { queryParams: { registered: 'true' } });
+    const formData = new FormData();
+    //Capturamos los datos del formulario
+    formData.append('username', this.username);
+    formData.append('email', this.email);
+    formData.append('password', this.password);
+    if (this.selectedFile) {
+      formData.append('avatar', this.selectedFile, this.selectedFile.name);
+    }
+    this.authService.register(formData).subscribe({
+      next: (response) => {
+        console.log('Registration successful:', response);
+        //Redirigimos al login con un query param para mostrar el mensaje de éxito 
+        this.router.navigate(['/login'], { queryParams: { registered: 'true' } });
+      },
+      error: (err) => {
+        console.error('Error during registration:', err);
+      }
+    });
   }
 }
