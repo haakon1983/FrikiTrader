@@ -20,8 +20,17 @@ export class AuthService {
 
   login(credentials: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/auth/login`, credentials).pipe(
-      tap((user) => this.currentUser.set(user))
+      tap((response: any) => {
+        if (response && response.user) {
+          localStorage.setItem('token', response.token); // Guardamos el token en localStorage
+          this.currentUser.set(response.user);
+        }
+      }) 
     );
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 
   logout(): void {
