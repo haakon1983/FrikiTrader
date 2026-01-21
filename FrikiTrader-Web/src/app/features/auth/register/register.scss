@@ -1,0 +1,133 @@
+@use 'variables' as *;
+@use 'sass:color';
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: $ft-bg-white;
+  padding: 20px;
+}
+
+.auth-card {
+  background: $ft-dark-grey;
+  width: 100%;
+  max-width: 450px; 
+  border-radius: $ft-border-radius;
+  box-shadow: $ft-card-shadow;
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.brand-icon {
+  font-size: 3rem;
+  color: $ft-gold;
+}
+
+.brand-name {
+  color: $ft-gold;
+  font-weight: 800;
+  margin-bottom: 0.2rem;
+}
+
+.text-muted {
+  color: rgba(white, 0.6);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.brand-tagline{
+  color: $ft-grey-muted !important;
+  font-size: 0.9rem;
+}
+
+label {
+  display: block;
+  text-align: left;
+  color: $ft-gold;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.custom-input {
+  width: 100%;
+  background-color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  color: $ft-text-dark;
+  
+  &:focus {
+    outline: 2px solid $ft-gold;
+  }
+}
+
+.btn-primary {
+  width: 100%;
+  background-color: $ft-gold;
+  color: $ft-dark-grey;
+  border: none;
+  padding: 14px;
+  font-weight: 700;
+  border-radius: 10px;
+  margin-top: 10px;
+  transition: transform 0.2s;
+
+  &:hover {
+    background-color: $ft-gold;
+    transform: translateY(-2px);
+  }
+}
+
+.auth-footer-links {
+  margin-top: 1.5rem;
+  color: white;
+  
+  a {
+    color: $ft-gold;
+    text-decoration: none;
+    font-weight: bold;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.avatar-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  .avatar-preview {
+    width: 80px;
+    height: 80px;
+    background-color: $ft-dark-grey;
+    border: 2px dashed $ft-gold;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    i {
+      font-size: 2.5rem;
+      color: rgba($ft-gold, 0.5);
+    }
+  }
+
+  .btn-avatar-select {
+    font-size: 0.8rem;
+    color: $ft-gold;
+    cursor: pointer;
+    border: 1px solid $ft-gold;
+    padding: 5px 12px;
+    border-radius: 20px;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: $ft-gold;
+      color: $ft-dark-grey;
+    }
+  }
+}

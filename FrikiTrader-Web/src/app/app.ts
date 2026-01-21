@@ -17,4 +17,9 @@ import { signal } from "@angular/core";
 export class App {
   constructor(public router: Router) {};
   protected readonly title = signal('FrikiTrader-Web');
+
+  isAuthPage(): boolean {
+    const autRoutes = ['/login', '/register', '/'];
+    return autRoutes.includes(this.router.url);
+  }
 }
