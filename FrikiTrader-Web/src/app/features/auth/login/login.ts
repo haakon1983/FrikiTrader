@@ -42,7 +42,7 @@ export class Login  implements OnInit {
     this.authService.login(credentials).subscribe({
       next: (response) => {
         console.log('Login successful:', response);
-        //this.router.navigate({'home'}); // Redirigir a la página principal u otra página después del login
+        this.router.navigate(['/home']); // Redirigir a la página principal u otra página después del login
       },
       error: (err) => {
         console.error('Error during login:', err);

@@ -121,3 +121,34 @@
         box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
     }
 }
+
+//Estilo botón cerrar sesión minimalista
+.btn-logout-minimal {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6); 
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: #ff4d4d; // Rojo suave al pasar el ratón para indicar "salir"
+    }
+}
+
+.user-profile {
+    .avatar {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        transition: border-color 0.3s ease;
+        
+        &:hover {
+            border-color: var(--ft-gold); 
+        }
+    }
+}
