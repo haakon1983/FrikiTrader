@@ -44,7 +44,7 @@ export class Register {
     if (this.selectedFile) {
       formData.append('avatar', this.selectedFile, this.selectedFile.name);
     }
-    this.authService.register(formData).subscribe({
+    /*this.authService.register(formData).subscribe({
       next: (response) => {
         console.log('Registration successful:', response);
         //Redirigimos al login con un query param para mostrar el mensaje de éxito 
@@ -53,6 +53,8 @@ export class Register {
       error: (err) => {
         console.error('Error during registration:', err);
       }
-    });
+    });*/
+    console.log("Formulario enviado");
+    this.router.navigate(['/login'], { queryParams: { registered: 'true' } });
   }
 }

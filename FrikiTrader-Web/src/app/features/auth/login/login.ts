@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterModule } from "@angular/router";
 import { OnInit } from "@angular/core";
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth/auth';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class Login  implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private authService: AuthService
   ) {}
 
