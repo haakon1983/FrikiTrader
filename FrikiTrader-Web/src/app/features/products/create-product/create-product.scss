@@ -1,0 +1,76 @@
+.form-container {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.upload-section {
+  background: #f8f9fa;
+  border-right: 1px solid #eee;
+  display: flex;
+  align-items: stretch;
+}
+
+.image-dropzone {
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+
+  &:hover:not(.has-preview) {
+    background: #eef2ff;
+  }
+
+  &.has-preview {
+    background: #000;
+  }
+}
+
+.preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.change-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.image-dropzone:hover .change-overlay {
+  opacity: 1;
+}
+
+.form-control, .form-select {
+  border: 2px solid #f1f5f9;
+  padding: 12px;
+  border-radius: 10px;
+  &:focus {
+    border-color: #6366f1;
+    box-shadow: none;
+  }
+}
+
+.btn-primary {
+  background: #6366f1;
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  font-weight: bold;
+  &:hover {
+    background: #4f46e5;
+  }
+}

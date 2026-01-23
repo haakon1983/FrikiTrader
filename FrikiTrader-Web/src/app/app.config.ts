@@ -2,7 +2,6 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 
@@ -22,7 +21,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient(),
-    provideAnimationsAsync(),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideStorage(() => getStorage()),
   ]
