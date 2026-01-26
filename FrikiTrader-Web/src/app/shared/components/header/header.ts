@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule} from "@angular/router";
 import { Router,RouterLink } from "@angular/router";
+import { AuthService } from '../../services/auth/auth';
 
 
 @Component({
@@ -12,14 +13,19 @@ import { Router,RouterLink } from "@angular/router";
   styleUrl: './header.scss',
 })
 export class Header {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('ft_token');
+    return this.authService.currentUser()?.userName || 'Usuario';
   } 
 
+  getUserName(): string {
+    const user = this.authService.currentUser();
+    return user ? user.userName : 'Usuario';
+  }
+
   logout() {
-    localStorage.removeItem('ft_token');
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }
