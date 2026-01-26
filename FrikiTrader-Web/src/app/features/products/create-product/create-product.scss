@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use 'variables' as *;
+
 .form-container {
   border-radius: 20px;
   overflow: hidden;
@@ -65,12 +68,34 @@
 }
 
 .btn-primary {
-  background: #6366f1;
+  background: $ft-dark-grey;
+  color: $ft-text-logo;
   border: none;
-  border-radius: 12px;
-  padding: 15px;
-  font-weight: bold;
+  font-weight: 800;
+  transition: all 0.3s ease;
+
+  &:hover:not(:disabled) {
+    background-color: $ft-gold;
+    color: $ft-dark-grey;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    filter: grayscale(1);
+    cursor: not-allowed;
+  }
+}
+
+.btn-back {
+  color: #555;
+  transition: all 0.2s;
+  padding: 8px 12px;
+  border-radius: 8px;
+
   &:hover {
-    background: #4f46e5;
+    color: $ft-dark-grey;
+    background-color: #f0f0f0;
+    transform: translateX(-3px); // Pequeño efecto de empuje a la izquierda
   }
 }

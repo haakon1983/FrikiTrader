@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StorageService } from '../../../core/services/storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-product',
@@ -24,10 +25,19 @@ export class CreateProduct {
     { id: 4, nombre: 'Merchandising' }
   ];
 
-  constructor(private fb: FormBuilder, private storageService: StorageService) {
+  //Muestra de estados:
+  estadosDummy = [
+    { id: 1, nombre: 'Nuevo' },
+    { id: 2, nombre: 'Como nuevo' },
+    { id: 3, nombre: 'Usado, en buen estado' },
+    { id: 4, nombre: 'Para piezas o no funcional' }
+  ];
+
+  constructor(private fb: FormBuilder, private storageService: StorageService, private router: Router) {
     this.productForm = this.fb.group({
       nombre: ['', Validators.required],
       precio: ['', [Validators.required, Validators.min(0)]],
+      estado: ['', Validators.required],
       categoria_id: ['', Validators.required],
       descripcion: ['', Validators.required]
     });
@@ -45,5 +55,9 @@ export class CreateProduct {
   onSubmit(): void {
     console.log(this.productForm.value);
     alert('Producto creado con éxito (simulado).');
+  }
+
+  goBack(): void {
+    this.router.navigate(['/home']);
   }
 }
