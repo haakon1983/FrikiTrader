@@ -41,6 +41,7 @@ namespace FrikiTrader.Aplication.Services
                 Username = dto.Username,
                 Email = dto.Email,
                 PasswordHash = _passworService.HashPassword(dto.Password),
+                ProfilePictureUrl = dto.ProfilePictureUrl,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -69,7 +70,8 @@ namespace FrikiTrader.Aplication.Services
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("ProfilePictureUrl", user.ProfilePictureUrl ?? "")
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
