@@ -49,8 +49,7 @@ export class Login  implements OnInit {
         Password: this.loginForm.value.password
       };
     this.authService.login(datosLogin).subscribe({
-      next: (response) => {
-        console.log('Login successful:', response);
+      next: () => {
         this.router.navigate(['/home']); // Redirigir a la página principal u otra página después del login
       },
       error: (err) => {

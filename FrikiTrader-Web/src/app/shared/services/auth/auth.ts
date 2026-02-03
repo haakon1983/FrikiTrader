@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { form } from '@angular/forms/signals';
 import { environment } from '../../../environments/environment';
+import { user } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -17,17 +18,26 @@ export class AuthService {
   }
 
   //Usamos FormData porque incluimos el avatar (archivo)
-  register(formData: FormData): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/auth/register`, formData);
+  register(userData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/auth/register`, userData);
   }
 
   login(credentials: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/auth/login`, credentials).pipe(
       tap((response: any) => {
-        if (response && response.user) {
+        console.log('Respuesta del servidor:', response);
+        if (response && response.token) {
           localStorage.setItem('token', response.token); // Guardamos el token en localStorage
-          this.currentUser.set(response.user || { nombre: 'Usuario' });
-        }
+          const decoded = this.decodeToken(response.token);
+          if (decoded) {
+            const userData = {
+              userName: decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] || decoded["unique_name"],
+              avatar: decoded["ProfilePictureUrl"] // El claim que añadimos en C#
+            };
+          this.currentUser.set(userData);
+          console.log('Signal después del set:', this.currentUser());
+          } 
+        } 
       }) 
     );
   }
@@ -37,15 +47,34 @@ export class AuthService {
   }
 
   private checkSession() {
-    const token = this.getToken();    
-    if (token) {
-      // Aquí podrías hacer una llamada al backend para validar el token y obtener los datos del usuario
-      // Por simplicidad, asumimos que el token es válido y establecemos un usuario simulado
-      this.currentUser.set({ userName: 'Usuario' });
+  const token = this.getToken();    
+  if (token) {
+    const decoded: any = this.decodeToken(token); 
+    
+    if (decoded) {
+      this.currentUser.set({
+        username: decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] || decoded["unique_name"],
+        avatar: decoded["ProfilePictureUrl"] // El claim que añadimos en C#
+      });
     }
   }
+}
 
   logout(): void {
     this.currentUser.set(null);
   }
+
+  private decodeToken(token: string): any {
+  try {
+    const base64Url = token.split('.')[1]; // Agarramos la parte del medio (Payload)
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    return null;
+  }
+}
 }

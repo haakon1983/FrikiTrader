@@ -4,6 +4,7 @@ import { RouterModule } from "@angular/router";
 import { Router } from "@angular/router";
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth/auth';
+import { StorageService } from '../../../core/services/storage';  
 
 @Component({
   selector: 'app-register',
@@ -17,10 +18,12 @@ export class Register {
   password = ''
   avatarUrl: string | null = null;
   selectedFile: File | null = null;
+  isSubmitting: boolean = false;
 
     constructor (
       private router: Router, 
-      private authService: AuthService
+      private authService: AuthService,
+      private storageService: StorageService
     ) {}
 
   onFileSelected(event: any): void {
@@ -35,26 +38,38 @@ export class Register {
     }
   }
 
-  onSubmit(): void {
-    const formData = new FormData();
-    //Capturamos los datos del formulario
-    formData.append('username', this.username);
-    formData.append('email', this.email);
-    formData.append('password', this.password);
-    if (this.selectedFile) {
-      formData.append('avatar', this.selectedFile, this.selectedFile.name);
-    }
-    /*this.authService.register(formData).subscribe({
-      next: (response) => {
-        console.log('Registration successful:', response);
-        //Redirigimos al login con un query param para mostrar el mensaje de éxito 
-        this.router.navigate(['/login'], { queryParams: { registered: 'true' } });
-      },
-      error: (err) => {
-        console.error('Error during registration:', err);
+  async onSubmit() {
+    if (this.isSubmitting) return; 
+    this.isSubmitting = true;
+    try{
+      let finalImageUrl = '';
+      //1. Subimos la imagen si existe a Firebase Storage
+      if (this.selectedFile) {
+        finalImageUrl = await this.storageService.uploadImage(this.selectedFile, 'avatars');
+          console.log('Imagen subida con URL:', finalImageUrl);
       }
-    });*/
-    console.log("Formulario enviado");
-    this.router.navigate(['/login'], { queryParams: { registered: 'true' } });
+    //2. Creamos el JSON con los datos del formulario para enviar a C#.
+      const userDTO = {
+        Username: this.username,
+        Email: this.email,
+        Password: this.password,
+        ProfilePictureUrl: finalImageUrl // Usamos la URL subida o vacía
+      };
+    //3. Enviamos el formulario al servicio de Auth
+      this.authService.register(userDTO).subscribe({
+        next: (response) => {
+          console.log('Registro satisfactorio:', response); 
+          //Redirigimos al login con un query param para mostrar el mensaje de éxito 
+          this.router.navigate(['/login'], { queryParams: { registered: 'true' } });
+        },
+        error: (err) => {
+          console.error('Error en el registro:', err);
+        }
+      });
+
+    }catch(error){
+      console.error('Error al subir la imagen:', error);
+    }
   }
 }
+// 

@@ -13,7 +13,8 @@ import { AuthService } from '../../services/auth/auth';
   styleUrl: './header.scss',
 })
 export class Header {
-  constructor(private router: Router, private authService: AuthService) {}
+  //currentUser = this.authService.currentUser;
+  constructor(private router: Router, public authService: AuthService) {}
 
   isLoggedIn(): boolean {
     return this.authService.currentUser()?.userName || 'Usuario';
