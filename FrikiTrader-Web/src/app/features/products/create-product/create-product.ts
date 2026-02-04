@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { StorageService } from '../../../core/services/storage/storage';
 import { OnSameUrlNavigation, Router } from '@angular/router';
 import { ProductService } from '../../../core/services/product/product-service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-product',
@@ -12,6 +13,7 @@ import { ProductService } from '../../../core/services/product/product-service';
   templateUrl: './create-product.html',
   styleUrl: './create-product.scss',
 })
+
 export class CreateProduct implements OnInit {
   productForm: FormGroup;
   selectedFile: File | null = null;
@@ -19,22 +21,6 @@ export class CreateProduct implements OnInit {
   loading: boolean = false;
   categorias = signal<any[]>([]);
   estados = signal<any[]>([]);
-
-  // Maqueta de categorías
-  categoriasDummy = [
-    { id: 1, nombre: 'Figuras' },
-    { id: 2, nombre: 'Cartas TCG' },
-    { id: 3, nombre: 'Cómics / Manga' },
-    { id: 4, nombre: 'Merchandising' }
-  ];
-
-  //Muestra de estados:
-  estadosDummy = [
-    { id: 1, nombre: 'Nuevo' },
-    { id: 2, nombre: 'Como nuevo' },
-    { id: 3, nombre: 'Usado, en buen estado' },
-    { id: 4, nombre: 'Para piezas o no funcional' }
-  ];
 
   constructor(private fb: FormBuilder, private storageService: StorageService, private router: Router, private productService: ProductService) {
     this.productForm = this.fb.group({
@@ -66,22 +52,52 @@ export class CreateProduct implements OnInit {
 
   async onSubmit() {
     if (this.productForm.invalid || !this.selectedFile) {
-      alert ("Por favor, rellena todos los campos y sube una imagen");
+      Swal.fire ("Por favor, rellena todos los campos y sube una imagen");
       return;
     }
-    this.loading = true;
-    try {
-      await this.productService.crearProducto(this.productForm.value, this.selectedFile);
-      alert("¡Producto publicado!");
-      this.router.navigate(['/home']); 
-    } catch (error) {
-      console.error("Error al guardar:", error);
-    } finally {
-      this.loading = false;
+    const confirmacion = await Swal.fire({
+      title: '¿Deseas publicar un artículo?',
+      text: "Se subirá al marketplace y será visible para todos los usuarios.",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, publicar ahora',
+      cancelButtonText: 'Revisar datos'
+    })
+
+    if (confirmacion.isConfirmed){
+      this.loading = true;
+      Swal.fire({
+        title: 'Publicando artículo...',
+        text: 'Subiendo imagen y guardando datos',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      try {
+        await this.productService.crearProducto(this.productForm.value, this.selectedFile);
+        await Swal.fire({
+          title: '¡Logrado!',
+          text: ' Tú artículo ha sido publicado con éxito.',
+          icon: 'success',
+          timer: 2000,
+          showConfirmButton: false
+        })
+        this.router.navigate(['/home']); 
+      } catch (error) {
+        console.error("Error al guardar:", error);
+        Swal.fire('Error', 'Hubo un problema al guardar los datos del artículo.', 'error')
+      } finally {
+        this.loading = false;
+      }
     }
   }
 
-  goBack(): void {
-    this.router.navigate(['/home']);
-  }
+    goBack(): void {
+      this.router.navigate(['/home']);
+    }
+    
 }
