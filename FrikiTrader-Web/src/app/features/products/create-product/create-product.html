@@ -46,8 +46,8 @@
 
             <div class="col-md-6 mb-3">
               <label class="form-label small text-muted  fw-bold">Estado del producto</label>
-              <select formControlName="estado" class="form-select custom-input">
-                <option *ngFor="let cond of estadosDummy" [value]="cond.id">
+              <select formControlName="condition" class="form-select custom-input">
+                <option *ngFor="let cond of estados()" [value]="cond.id">
                   {{ cond.nombre }}
                 </option>
               </select>
@@ -55,23 +55,34 @@
 
             <div class="col-md-6 mb-3">
               <label class="form-label fw-bold">Categoría</label>
-              <select formControlName="categoria_id" class="form-select">
+              <select formControlName="categoryId" class="form-select">
                 <option value="" disabled>Selecciona...</option>
-                <option *ngFor="let cat of categoriasDummy" [value]="cat.id">
-                  {{ cat.nombre }}
+                <option *ngFor="let cat of categorias()" [value]="cat.id">
+                  {{ cat.name }}
                 </option>
               </select>
             </div>
 
             <div class="col-12 mb-4">
               <label class="form-label fw-bold">Descripción</label>
-              <textarea formControlName="descripcion" class="form-control" rows="4" placeholder="Describe el estado, si es original, etc."></textarea>
+              <textarea formControlName="description" class="form-control" rows="4" placeholder="Describe el estado, si es original, etc."></textarea>
             </div>
 
+            <p>Estado del formulario: {{ productForm.status }}</p>
+<pre>{{ productForm.errors | json }}</pre>
+<div *ngIf="productForm.invalid" class="alert alert-warning">
+  Campos pendientes: 
+  <span *ngIf="productForm.get('nombre')?.invalid">Nombre, </span>
+  <span *ngIf="productForm.get('precio')?.invalid">Precio, </span>
+  <span *ngIf="productForm.get('condition')?.invalid">Estado, </span>
+  <span *ngIf="productForm.get('categoryId')?.invalid">Categoría, </span>
+  <span *ngIf="productForm.get('description')?.invalid">Descripción</span>
+</div>
+
             <div class="col-12">
-              <button type="submit" [disabled]="productForm.invalid || isUploading" class="btn btn-primary btn-lg w-100 shadow">
-                <span *ngIf="!isUploading">Publicar en FrikiTrader</span>
-                <span *ngIf="isUploading" class="spinner-border spinner-border-sm"></span>
+              <button type="submit" [disabled]="productForm.invalid || loading || !selectedFile" class="btn btn-primary btn-lg w-100 shadow">
+                <span *ngIf="!loading">Publicar en FrikiTrader</span>
+                <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
               </button>
             </div>
           </div>

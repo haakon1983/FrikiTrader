@@ -1,9 +1,10 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideStorage, getStorage } from '@angular/fire/storage';
+import { authInterceptorInterceptor } from './shared/interceptors/auth-interceptor-interceptor';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDmEW3kK8SYQp1g4vJUI7xXC6WwwpxXS_o",
@@ -20,7 +21,9 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([authInterceptorInterceptor])
+    ),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideStorage(() => getStorage()),
   ]

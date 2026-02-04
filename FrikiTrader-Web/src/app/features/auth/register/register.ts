@@ -4,7 +4,7 @@ import { RouterModule } from "@angular/router";
 import { Router } from "@angular/router";
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth/auth';
-import { StorageService } from '../../../core/services/storage';  
+import { StorageService } from '../../../core/services/storage/storage';  
 
 @Component({
   selector: 'app-register',
