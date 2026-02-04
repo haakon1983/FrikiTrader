@@ -1,7 +1,9 @@
 ﻿using FrikiTrader.Aplication.DTOs;
 using FrikiTrader.Aplication.Interfaces;
+using FrikiTrader.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using System.Security.Claims;
 
 namespace FrikiTrader.API.Controllers
@@ -42,7 +44,7 @@ namespace FrikiTrader.API.Controllers
 
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
@@ -88,6 +90,33 @@ namespace FrikiTrader.API.Controllers
             var success = await _productService.DeleteAsync(id, userId);
             return success ? NoContent() : BadRequest();
         }
+
+
+        [HttpGet("conditions")]
+        [AllowAnonymous]
+        public IActionResult GetConditions()
+        {
+            // Esto convierte el Enum en una lista de objetos { id, nombre } para Angular
+            var conditions = Enum.GetValues(typeof(ProductCondition))
+                .Cast<ProductCondition>()
+                .Select(e => new
+                {
+                    id = (int)e,
+                    nombre = GetEnumDescription(e) 
+                });
+
+            return Ok(conditions);
+        }
+
+        private static string GetEnumDescription(Enum value)
+        {
+            var field = value.GetType().GetField(value.ToString());
+            var attribute = field?.GetCustomAttributes(typeof(DescriptionAttribute), false)
+                                  .FirstOrDefault() as DescriptionAttribute;
+
+            return attribute != null ? attribute.Description : value.ToString();
+        }
+
 
     }
 }
