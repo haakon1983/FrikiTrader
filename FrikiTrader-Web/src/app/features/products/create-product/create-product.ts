@@ -80,7 +80,7 @@ export class CreateProduct implements OnInit {
       try {
         await this.productService.crearProducto(this.productForm.value, this.selectedFile);
         await Swal.fire({
-          title: '¡Logrado!',
+          title: '!Conseguido!',
           text: ' Tú artículo ha sido publicado con éxito.',
           icon: 'success',
           timer: 2000,

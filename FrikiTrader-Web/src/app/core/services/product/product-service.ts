@@ -4,6 +4,7 @@ import { firstValueFrom, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { StorageService } from '../storage/storage';
 import { Title } from '@angular/platform-browser';
+import { Product } from '../../../shared/models/product-interface';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -34,4 +35,10 @@ export class ProductService {
   getConditions(): Observable<any[]> {
     return this.http.get<any[]>(`${this.productsUrl}/conditions`);
   }
+
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.productsUrl);
+  }
+
+  
 }

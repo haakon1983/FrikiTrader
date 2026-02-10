@@ -1,0 +1,28 @@
+<div class="principal-card">
+    <div class="image-area">
+        <img [src]="product.imageUrl" [alt]="product.title" class="main-img">
+    
+        <span class="condition-badge">
+            {{ getConditionLabel(product.condition) }}
+        </span>
+
+        <button class="favorite-circle" (click)="toggleFavorite($event)">
+            <i class="bi bi-heart"></i>
+        </button>
+    </div>
+
+    <div class="info-area">
+        <div class="meta-row">
+            <span class="category-tag">{{ product.categoryName || 'Friki' }}</span>
+        </div>
+        
+        <h3 class="product-name">{{ product.title }}</h3>
+        
+        <div class="footer-row">
+            <span class="price-tag">{{ product.price | currency:'EUR' }}</span>
+            <button class="view-btn">
+                <i class="bi bi-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
