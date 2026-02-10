@@ -13,7 +13,7 @@
 
     <div class="info-area">
         <div class="meta-row">
-            <span class="category-tag">{{ product.categoryName || 'Friki' }}</span>
+            <span class="category-tag">{{ getCategoryLabel(product.categoryId )|| 'FRIKI'}}</span>
         </div>
         
         <h3 class="product-name">{{ product.title }}</h3>
