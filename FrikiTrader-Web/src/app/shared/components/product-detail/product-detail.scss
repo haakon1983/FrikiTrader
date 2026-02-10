@@ -1,0 +1,71 @@
+@use 'sass:color';
+@use 'variables' as *;
+
+.btn-back {
+    background-color: #4a4a4a;
+    color: white;
+    border-radius: 8px;
+    padding: 8px 16px;
+    &:hover { color: #ffc107; }
+}
+
+.main-image-container {
+    background-color: #f0f2f5; // Gris claro de fondo
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 450px;
+
+    .main-image {
+        max-height: 400px;
+        object-fit: contain;
+        mix-blend-mode: multiply; // Para que el fondo blanco de la foto sea transparente
+    }
+}
+
+.product-title {
+    font-weight: 800;
+    font-size: 2rem;
+}
+
+.product-price {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-top: 1rem;
+    color: $ft-gold;
+}
+
+.description-box {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 15px;
+    min-height: 100px;
+}
+
+// Botones específicos
+.btn-dark-custom {
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.btn-outline-custom {
+    border: 2px solid #eee;
+    border-radius: 10px;
+    padding: 12px;
+    background: white;
+    &:hover { background: #f8f9fa; }
+}
+
+.btn-buy-now {
+    background-color: #ffc107; // Amarillo FrikiTrader
+    border: none;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 1.2rem;
+    &:hover { background-color: #e0a800; }
+}

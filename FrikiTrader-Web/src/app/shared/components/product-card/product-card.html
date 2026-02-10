@@ -20,7 +20,7 @@
         
         <div class="footer-row">
             <span class="price-tag">{{ product.price | currency:'EUR' }}</span>
-            <button class="view-btn">
+            <button class="view-btn" [routerLink]="['/product', product.id]">
                 <i class="bi bi-arrow-right"></i>
             </button>
         </div>

@@ -1,0 +1,46 @@
+<div class="container py-4" *ngIf="product() as p">
+    <button class="btn btn-back mb-4" routerLink="/home">
+        <i class="bi bi-arrow-left"></i> Volver a FrikiTrader
+    </button>
+
+    <div class="row g-4">
+        <div class="col-md-7">
+        <div class="main-image-container">
+            <img [src]="p.imageUrl" [alt]="p.title" class="img-fluid main-image">
+        </div>
+
+        <div class="mb-2">
+            <span class="badge rounded-pill bg-light text-dark border me-1">
+            {{ getCategoryLabel(p.categoryId) }}
+            </span>
+        </div>
+        
+        <div class="d-none d-md-flex gap-2 mt-3">
+            <button class="btn btn-dark-custom flex-grow-1">Chatear</button>
+            <button class="btn btn-outline-custom flex-grow-1" (click)="toggleFavorite()">
+            <i class="bi" [ngClass]="isFavorite() ? 'bi-heart-fill text-danger' : 'bi-heart'"></i> Favorito
+            </button>
+        </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="product-info-card">
+                <h1 class="product-title">{{ p.title }}</h1>
+                <p class="product-status text-muted">En venta |  {{ getConditionLabel(p.condition) }}</p>
+                
+                <h2 class="product-price">{{ p.price | currency:'EUR' }}</h2>
+
+                <div class="description-section mt-4">
+                    <h5>Descripción</h5>
+                    <div class="description-box">
+                        <p>{{ p.description }}</p>
+                    </div>
+                </div>
+
+                <button class="btn btn-buy-now w-100 mt-4 py-3" (click)="comprar()">
+                Comprar ahora
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

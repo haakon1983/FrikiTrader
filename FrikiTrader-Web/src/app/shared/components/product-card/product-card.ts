@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Product } from '../../models/product-interface';
+import { RouterLink } from "@angular/router";
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, RouterModule],
   templateUrl: './product-card.html',
   styleUrl: './product-card.scss',
 })

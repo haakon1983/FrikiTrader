@@ -5,4 +5,5 @@ export interface Product {
     imageUrl: string;
     condition: number | string;
     categoryId: number;
+    description: string;
 }

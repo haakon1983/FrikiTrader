@@ -1,14 +1,13 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Header } from '../../shared/components/header/header';
-import { Footer } from '../../shared/components/footer/footer';
 import { Product } from '../../shared/models/product-interface';
 import { ProductCard } from '../../shared/components/product-card/product-card';
 import { ProductService } from '../../core/services/product/product-service';
+import { RouterModule } from "@angular/router";
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, Header, Footer, ProductCard],
+  imports: [CommonModule, ProductCard, RouterModule],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
