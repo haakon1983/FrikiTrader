@@ -65,7 +65,7 @@ namespace FrikiTrader.API.Controllers
             {
                 return NotFound(new { message = "Producto no encontrado." });
             }
-            if(product.UserId != userId)
+            if (product.UserId != userId)
             {
                 return Forbid();
             }
@@ -102,7 +102,7 @@ namespace FrikiTrader.API.Controllers
                 .Select(e => new
                 {
                     id = (int)e,
-                    nombre = GetEnumDescription(e) 
+                    nombre = GetEnumDescription(e)
                 });
 
             return Ok(conditions);
@@ -117,6 +117,23 @@ namespace FrikiTrader.API.Controllers
             return attribute != null ? attribute.Description : value.ToString();
         }
 
+        [HttpPatch("{id}/buy")]
+        public async Task<IActionResult> BuyProduct(int id)
+        {
+            var product = await _productService.GetByIdAsync(id);
+            if (product == null)
+            {
+                return NotFound(new { message = "Producto no encontrado." });
+            }
+            if (product.Status == ProductStatus.Vendido)
+            {
+                return BadRequest(new { message = "Este producto ya ha sido vendido." });
+            }
 
+            product.Status = ProductStatus.Vendido;
+            await _productService.UpdateStatusAsync(id, product.Status);
+            return Ok(new { message = "Producto comprado exitosamente." });
+
+        }
     }
 }

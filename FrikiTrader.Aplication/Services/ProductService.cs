@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FrikiTrader.Aplication.Services
 {
-    public class ProductService: IProductService
+    public class ProductService : IProductService
     {
         private readonly ApplicationDbContext _context;
         public ProductService(ApplicationDbContext context)
@@ -29,7 +29,8 @@ namespace FrikiTrader.Aplication.Services
                 Condition = (ProductCondition)dto.Condition,
                 ImageUrl = dto.ImageUrl,
                 UserId = userId,
-                CategoryId = dto.CategoryId
+                CategoryId = dto.CategoryId,
+                Status = ProductStatus.Disponible
             };
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
@@ -38,7 +39,9 @@ namespace FrikiTrader.Aplication.Services
 
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products
+                .Where(p => p.Status == ProductStatus.Disponible) // Solo productos disponibles
+                .ToListAsync();
         }
 
         public async Task<Product?> GetByIdAsync(int id)
@@ -54,7 +57,7 @@ namespace FrikiTrader.Aplication.Services
             var product = await _context.Products.FindAsync(id);
             //Validamos: Primero, que el producto exista; Segundo, que el userId del token coincida con el producto.
             if (product == null || product.UserId != userId) return false;
-            
+
             product.Title = dto.Title;
             product.Description = dto.Description;
             product.Price = dto.Price;
@@ -71,6 +74,20 @@ namespace FrikiTrader.Aplication.Services
             if (product == null || product.UserId != userId) return false;
             _context.Products.Remove(product);
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task UpdateStatusAsync(int id, ProductStatus status)
+        {
+            var product = await _context.Products.FindAsync(id);
+            if (product != null)
+            {
+                product.Status = status;
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("Producto no encontrado");
+            }
         }
     }
 }

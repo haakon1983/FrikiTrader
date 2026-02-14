@@ -27,5 +27,7 @@ namespace FrikiTrader.Domain
         // Propiedad de Navegación (Relación 1:N con ChatConversation)
         // Un Producto puede ser el contexto de muchas conversaciones de chat
         public ICollection<ChatConversation> Conversations { get; set; } = new List<ChatConversation>();
+
+        public ProductStatus Status { get; set; } = ProductStatus.Disponible; // Valor por defecto
     }
 }
