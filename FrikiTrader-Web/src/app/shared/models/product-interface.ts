@@ -6,4 +6,5 @@ export interface Product {
     condition: number | string;
     categoryId: number;
     description: string;
+    status: 'Disponible' | 'Vendido';
 }

@@ -1,12 +1,16 @@
-<div class="principal-card">
+<div class="principal-card" [class.is-sold]="product.status === 'Vendido'">
     <div class="image-area">
-        <img [src]="product.imageUrl" [alt]="product.title" class="main-img">
+        <img [src]="product.imageUrl" [alt]="product.title" class="main-img" [style.filter]="product.status === 'Vendido' ? 'grayscale(100%)' : 'none'">
     
         <span class="condition-badge">
             {{ getConditionLabel(product.condition) }}
         </span>
 
-        <button class="favorite-circle" (click)="toggleFavorite($event)">
+        <div *ngIf="product.status === 'Vendido'" class="sold-stamp">
+            <span class="sold-text">VENDIDO</span>
+        </div>
+
+        <button *ngIf="product.status !== 'Vendido'" class="favorite-circle" (click)="toggleFavorite($event)">
             <i class="bi bi-heart"></i>
         </button>
     </div>
@@ -14,15 +18,18 @@
     <div class="info-area">
         <div class="meta-row">
             <span class="category-tag">{{ getCategoryLabel(product.categoryId )|| 'FRIKI'}}</span>
+            <span *ngIf="product.status === 'Vendido'" class="status-tag vendido">Vendido</span>
         </div>
         
         <h3 class="product-name">{{ product.title }}</h3>
         
         <div class="footer-row">
             <span class="price-tag">{{ product.price | currency:'EUR' }}</span>
-            <button class="view-btn" [routerLink]="['/product', product.id]">
+            <button *ngIf="product.status !== 'Vendido'" class="view-btn" [routerLink]="['/product', product.id]">
                 <i class="bi bi-arrow-right"></i>
             </button>
+
+            <i *ngIf="product.status === 'Vendido'" class="bi bi-lock-fill text-muted"></i>   
         </div>
     </div>
 </div>
