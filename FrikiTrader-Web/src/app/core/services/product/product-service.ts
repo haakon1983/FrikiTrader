@@ -43,4 +43,8 @@ export class ProductService {
   getProductById(id: number): Observable<Product> {
     return this.http.get<Product>(`${this.productsUrl}/${id}`);
   }
+
+  buyProduct(id: number): Observable<any> {
+    return this.http.patch(`${this.productsUrl}/${id}/buy`, {});
+  }
 }
