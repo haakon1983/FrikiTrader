@@ -19,6 +19,7 @@ namespace FrikiTrader.Infraestructure
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ChatConversation> ChatConversations { get; set; }
+        public DbSet<UserFavorite> UserFavorites { get; set; }
 
         // Confihuración del mapeo avanzado
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -47,6 +48,10 @@ namespace FrikiTrader.Infraestructure
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price)
                 .HasColumnType("decimal(10,2)"); // 10 dígitos en total, 2 decimales
+
+            modelBuilder.Entity<UserFavorite>()
+                .HasIndex(uf => new { uf.UserId, uf.ProductId })
+                .IsUnique(); // Evita que un usuario marque el mismo producto como favorito más de una vez
         }
     }
 }

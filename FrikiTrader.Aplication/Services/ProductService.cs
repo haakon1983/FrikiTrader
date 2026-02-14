@@ -37,11 +37,26 @@ namespace FrikiTrader.Aplication.Services
             return product;
         }
 
-        public async Task<IEnumerable<Product>> GetAllAsync()
+        public async Task<IEnumerable<Product>> GetAllAsync(int? currentUserId = null)
         {
-            return await _context.Products
+            var products = await _context.Products
                 .Where(p => p.Status == ProductStatus.Disponible) // Solo productos disponibles
                 .ToListAsync();
+
+            if (currentUserId.HasValue)
+            {
+                var favoriteIds = await _context.UserFavorites
+                    .Where(f => f.UserId == currentUserId.Value)
+                    .Select(f => f.ProductId)
+                    .ToListAsync(); 
+
+                foreach (var p in products)
+                {
+                    p.IsFavorite = favoriteIds.Contains(p.Id);
+                }
+            }
+            return products;
+
         }
 
         public async Task<Product?> GetByIdAsync(int id)

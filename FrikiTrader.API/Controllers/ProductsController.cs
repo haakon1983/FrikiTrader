@@ -39,7 +39,13 @@ namespace FrikiTrader.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
-            var products = await _productService.GetAllAsync();
+            int? currentUserId = null;
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim != null)
+            {
+                currentUserId = int.Parse(userIdClaim.Value);
+            }
+            var products = await _productService.GetAllAsync(currentUserId);
             return Ok(products);
 
         }

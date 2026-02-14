@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,5 +30,8 @@ namespace FrikiTrader.Domain
         public ICollection<ChatConversation> Conversations { get; set; } = new List<ChatConversation>();
 
         public ProductStatus Status { get; set; } = ProductStatus.Disponible; // Valor por defecto
+        
+        [NotMapped]
+        public bool IsFavorite { get; set; }
     }
 }
