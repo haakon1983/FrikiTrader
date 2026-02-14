@@ -60,8 +60,8 @@ export class CreateProduct implements OnInit {
       text: "Se subirá al marketplace y será visible para todos los usuarios.",
       icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#ffc107',
+      cancelButtonColor: '#333',
       confirmButtonText: 'Sí, publicar ahora',
       cancelButtonText: 'Revisar datos'
     })

@@ -3,6 +3,7 @@ import { Product } from '../../models/product-interface';
 import { ProductService } from '../../../core/services/product/product-service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-detail',
@@ -43,12 +44,53 @@ export class ProductDetail implements OnInit{
     }
   }
   comprar() {
-  if (confirm('¿Quieres comprar este artículo?')) {
-    // Aquí llamaríamos a un service.venderProducto(id)
-    // que haga un PATCH en C# para poner el producto como 'Vendido'
-    alert('¡Compra realizada! El artículo ya no estará disponible.');
-    this.router.navigate(['home']);
-  }
+  const p = this.product();
+  if (!p || !p.id) return;
+
+  Swal.fire({
+    title: '¿Confirmar compra?',
+    text: `Vas a comprar "${p.title}" por ${p.price}€. Esta acción no se puede deshacer.`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#ffc107', // El amarillo de tu diseño
+    cancelButtonColor: '#333',
+    confirmButtonText: 'Sí, ¡comprar!',
+    cancelButtonText: 'Cancelar',
+    background: '#f8f9fa',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.productService.buyProduct(p.id!).subscribe({  
+        next: () => {
+          Swal.fire({
+            title: '¡Compra realizada!',
+            text: `Has comprado "${p.title}" por ${p.price}€. ¡Gracias por tu compra!`,
+            icon: 'success',
+            timer:2000,
+            showConfirmButton: false,
+          });
+          setTimeout(() => {
+            this.router.navigate(['home']);
+          }, 2000);
+        },
+        error: (err) => {
+          console.error('Error al comprar el producto', err); 
+        }
+      });
+    } 
+  });
+  
+  /*if (confirm(`¿Estás seguro de que quieres comprar "${p.title}" por ${p.price}€?`)) {
+    this.productService.buyProduct(p.id).subscribe({
+      next: () => {
+        alert('¡Compra realizada con éxito!');
+        this.router.navigate(['home']);
+      },
+      error: (err) => {
+        console.error('Error al comprar el producto', err);
+        alert('Hubo un error al procesar tu compra. Por favor, inténtalo de nuevo.');
+      }
+    });
+  }*/
 }
 
   getCategoryLabel(categoryId: any): string {
@@ -57,7 +99,7 @@ export class ProductDetail implements OnInit{
       2: 'Figuras y muñecos',
       3: 'Videojuegos',
       4: 'Juegos de Mesa',
-      5: 'Juegos de catas',
+      5: 'Juegos de cartas',
       6: 'Wargames',
       7: 'Merchandising'
     };
