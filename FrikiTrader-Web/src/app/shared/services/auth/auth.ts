@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { form } from '@angular/forms/signals';
+import { FormControl, FormGroup } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { user } from '@angular/fire/auth';
 
