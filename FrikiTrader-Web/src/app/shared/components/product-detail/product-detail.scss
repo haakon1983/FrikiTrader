@@ -54,18 +54,40 @@
 }
 
 .btn-outline-custom {
-    border: 2px solid #eee;
-    border-radius: 10px;
-    padding: 12px;
-    background: white;
-    &:hover { background: #f8f9fa; }
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #333;
+    transition: all 0.3s ease;
+    font-weight: 500;
+
+    i {
+        transition: transform 0.2s ease, color 0.3s ease;
+        font-size: 1.1rem;
+    }
+
+    // Estado cuando es favorito
+    &.active-fav {
+        border-color: #ff4757; 
+        color: #ff4757;       
+        background-color: #fff1f2; 
+
+        i {
+            color: #ff4757;   
+            transform: scale(1.2);
+        }
+    }
+
+    &:hover {
+        background-color: #f8f9fa;
+        border-color: #bbb;
+    }
 }
 
 .btn-buy-now {
-    background-color: #ffc107; // Amarillo FrikiTrader
+    background-color: $ft-gold; 
     border: none;
     border-radius: 10px;
     font-weight: 800;
     font-size: 1.2rem;
-    &:hover { background-color: #e0a800; }
+    &:hover { background-color: color.scale($ft-gold, $lightness: -10%); }
 }

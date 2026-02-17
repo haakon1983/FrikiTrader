@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Product } from '../../models/product-interface';
 import { RouterLink } from "@angular/router";
 import { RouterModule } from '@angular/router';
+import { FavoritesService } from '../../../core/services/favorites/favorites-service';
 
 @Component({
   selector: 'app-product-card',
@@ -13,6 +14,8 @@ import { RouterModule } from '@angular/router';
 })
 export class ProductCard {
   @Input ({required: true}) product!: Product;
+
+  private favoritesService = inject(FavoritesService);
 
   getConditionLabel(condition: any): string {
     const labels: any = {
@@ -35,7 +38,7 @@ export class ProductCard {
     2: 'Figuras y muñecos',
     3: 'Videojuegos',
     4: 'Juegos de Mesa',
-    5: 'Juegos de catas',
+    5: 'Juegos de cartas',
     6: 'Wargames',
     7: 'Merchandising'
   };
@@ -45,6 +48,28 @@ export class ProductCard {
 
   toggleFavorite(event: Event) {
     event.stopPropagation();
+
+    if (!this.product.id) return;
+
+    if (this.product.isFavorite) {
+      this.favoritesService.removeFavorite(this.product.id).subscribe({
+        next: () => {
+          this.product.isFavorite = false;
+        },
+      });
+    } else {
+      this.favoritesService.addFavorite(this.product.id).subscribe({
+        next: () => {
+          this.product.isFavorite = true;
+        },
+        error: (err) => {          
+          if (err.status === 401){
+            alert('Debes iniciar sesión para agregar a favoritos');
+          }
+
+        }
+      });
+    }
   }
 
 }

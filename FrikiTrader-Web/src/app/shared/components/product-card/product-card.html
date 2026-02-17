@@ -11,7 +11,7 @@
         </div>
 
         <button *ngIf="product.status !== 'Vendido'" class="favorite-circle" (click)="toggleFavorite($event)">
-            <i class="bi bi-heart"></i>
+            <i class="bi bi-heart" [class.fas]="product.isFavorite" [class.far]="!product.isFavorite" [style.color]="product.isFavorite ? 'red' : 'gray'"></i>
         </button>
     </div>
 

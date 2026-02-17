@@ -1,8 +1,9 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { Product } from '../../models/product-interface';
 import { ProductService } from '../../../core/services/product/product-service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FavoritesService } from '../../../core/services/favorites/favorites-service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,13 +14,14 @@ import Swal from 'sweetalert2';
   styleUrl: './product-detail.scss',
 })
 export class ProductDetail implements OnInit{
-  product = signal<Product | null>(null);
-  isFavorite = signal<boolean>(false);
+  product = signal<Product | null>(null)
+  //private productService = inject(ProductService);
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService,
-    public router: Router
+    private productService: ProductService,  
+    public router: Router,
+    private favoritesService: FavoritesService
   ) {}
 
   ngOnInit(): void {
@@ -37,12 +39,46 @@ export class ProductDetail implements OnInit{
 
   //Para los botones
   toggleFavorite() {
-    this.isFavorite.update(value => !value);
+    const p = this.product();
+    if (!p || !p.id) return;
 
-    if (this.isFavorite()){
-      console.log("Guardado en mis favoritos")
+    if (p.isFavorite) {
+      this.favoritesService.removeFavorite(p.id).subscribe({
+        next: () => {
+          this.product.update(prev => prev ? {...prev, isFavorite: false} : null);
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'info',
+            title: 'Producto eliminado de favoritos',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        },
+      });
+    } else {
+      this.favoritesService.addFavorite(p.id).subscribe({
+        next: () => {
+          this.product.update(prev => prev ? {...prev, isFavorite: true} : null);
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: 'Producto añadido a favoritos',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        },
+        error: (err) => {          
+          if (err.status === 401){
+            alert('Debes iniciar sesión para agregar a favoritos');
+          }
+
+        }
+      });
     }
   }
+
   comprar() {
   const p = this.product();
   if (!p || !p.id) return;
@@ -78,19 +114,6 @@ export class ProductDetail implements OnInit{
       });
     } 
   });
-  
-  /*if (confirm(`¿Estás seguro de que quieres comprar "${p.title}" por ${p.price}€?`)) {
-    this.productService.buyProduct(p.id).subscribe({
-      next: () => {
-        alert('¡Compra realizada con éxito!');
-        this.router.navigate(['home']);
-      },
-      error: (err) => {
-        console.error('Error al comprar el producto', err);
-        alert('Hubo un error al procesar tu compra. Por favor, inténtalo de nuevo.');
-      }
-    });
-  }*/
 }
 
   getCategoryLabel(categoryId: any): string {

@@ -17,11 +17,14 @@
         
         <div class="d-none d-md-flex gap-2 mt-3">
             <button class="btn btn-dark-custom flex-grow-1">Chatear</button>
-            <button class="btn btn-outline-custom flex-grow-1" (click)="toggleFavorite()">
-            <i class="bi" [ngClass]="isFavorite() ? 'bi-heart-fill text-danger' : 'bi-heart'"></i> Favorito
+            <button class="btn btn-outline-custom flex-grow-1 d-flex align-items-center justify-content-center gap-2"
+            [class.active-fav]="p.isFavorite"
+            (click)="toggleFavorite()">
+            <i class="fa-heart" [class.fas]="p.isFavorite" [class.far]="!p.isFavorite"></i>
+                {{ p.isFavorite ? 'Quitar de favoritos' : 'Añadir a favoritos' }}
             </button>
         </div>
-        </div>
+    </div>
 
         <div class="col-md-5">
             <div class="product-info-card">
