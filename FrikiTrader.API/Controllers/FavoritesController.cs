@@ -92,6 +92,7 @@ namespace FrikiTrader.API.Controllers
                 p.IsFavorite = true; // Marca cada producto como favorito
             }
 
+
             return Ok(products);
         }
 
