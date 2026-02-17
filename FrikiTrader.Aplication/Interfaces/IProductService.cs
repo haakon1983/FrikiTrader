@@ -10,7 +10,7 @@ namespace FrikiTrader.Aplication.Interfaces
 {
     public interface IProductService
     {
-        Task<IEnumerable<Product>> GetAllAsync(int? currentUserId = null);
+        Task<IEnumerable<Product>> GetAllAsync(int? categoryId, string? order, bool onlyFavorites, int? currentUserId);
         Task<Product> GetByIdAsync(int id);
         Task<Product> CreateAsync(ProductCreateDto dto, int userId);
         Task<bool> UpdateAsync(int id, ProductCreateDto dto, int userId);

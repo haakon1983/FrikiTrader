@@ -37,11 +37,31 @@ namespace FrikiTrader.Aplication.Services
             return product;
         }
 
-        public async Task<IEnumerable<Product>> GetAllAsync(int? currentUserId = null)
+        public async Task<IEnumerable<Product>> GetAllAsync(int? categoryId, string? order, bool onlyFavorites,  int? currentUserId)
         {
-            var products = await _context.Products
+            var query =  _context.Products
                 .Where(p => p.Status == ProductStatus.Disponible) // Solo productos disponibles
-                .ToListAsync();
+                .AsQueryable();
+
+            if (categoryId.HasValue && categoryId > 0)
+            {
+                query = query.Where(p => p.CategoryId == categoryId.Value);
+            }
+
+            if (onlyFavorites && currentUserId.HasValue)
+            {
+                query = query.Where(p => _context.UserFavorites.Any(f => f.UserId == currentUserId.Value && f.ProductId == p.Id));
+            }
+
+            query =order?.ToLower() switch
+            {
+                "asc" => query.OrderBy(p => p.Price),
+                "desc" => query.OrderByDescending(p => p.Price),
+                "newest" => query.OrderByDescending(p => p.Id),
+                _ => query.OrderByDescending(p => p.Id) // Por defecto, los más nuevos primero
+            };
+            var products =  await query.ToListAsync();
+
 
             if (currentUserId.HasValue)
             {
