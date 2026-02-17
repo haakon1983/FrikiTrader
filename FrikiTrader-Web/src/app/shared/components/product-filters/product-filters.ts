@@ -32,4 +32,9 @@ export class ProductFilters {
     this.filtersChange.emit({ ...this.filters });
   }
 
+  toggleFavorites() {
+  this.filters.onlyFavorites = !this.filters.onlyFavorites;
+  this.applyFilters();
+}
+
 }

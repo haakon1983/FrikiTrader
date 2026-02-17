@@ -1,27 +1,32 @@
-<div class="row g-3 p-3 bg-white border rounded shadow-sm mb-4">
+<div class="filter-container p-3 mb-4 shadow-sm border rounded-4 bg-white">
+    <div class="d-flex flex-wrap align-items-center gap-4">
 
-    <div class="col-md-4">
-        <label class="small fw-bold text-muted">Categoría</label>
-        <select class="form-select" [(ngModel)]="filters.categoryId" (change)="applyFilters()">
-            <option value="">Todas</option>
-            <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
-        </select>
-    </div>
+        <div class="filter-capsule">
+            <label class="capsule-label">Categoría</label>
+            <select class="form-select" [(ngModel)]="filters.categoryId" (change)="applyFilters()">
+                <option value="">Todas</option>
+                <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+            </select>
+        </div>
 
-    <div class="col-md-4">
-        <label class="small fw-bold">Ordenar por precio</label>
-        <select class="form-select" [(ngModel)]="filters.order" (change)="applyFilters()">
-        <option value="newest">Novedades</option>
-        <option value="asc">Más barato primero</option>
-        <option value="desc">Más caro primero</option>
-        </select>
-    </div>
+        <div class="filter-capsule">
+            <label class="capsule-label">Ordenar productos</label>
+            <select class="form-select" [(ngModel)]="filters.order" (change)="applyFilters()">
+            <option value="newest">Novedades</option>
+            <option value="asc">Más barato primero</option>
+            <option value="desc">Más caro primero</option>
+            </select>
+        </div>
 
-    <div class="col-md-4 d-flex align-items-end">
-        <div class="form-check form-switch mb-2">
-        <input class="form-check-input" type="checkbox" id="favs" 
-                [(ngModel)]="filters.onlyFavorites" (change)="applyFilters()">
-        <label class="form-check-label fw-bold" for="favs">Solo favoritos ❤️</label>
+        <div class="ms-md-auto">
+            <button 
+                type="button" 
+                class="fav-toggle-btn" 
+                [class.active]="filters.onlyFavorites"
+                (click)="toggleFavorites()">
+                <i class="bi" [ngClass]="filters.onlyFavorites ? 'bi-heart-fill' : 'bi-heart'"></i>
+                <span>{{ filters.onlyFavorites ? 'Mis favoritos' : 'Ver favoritos' }}</span>
+            </button>
         </div>
     </div>
 

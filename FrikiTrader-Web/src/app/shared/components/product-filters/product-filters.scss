@@ -1,0 +1,79 @@
+.filter-capsule {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: #f8f9fa; // Fondo muy suave
+    border: 1px solid #e9ecef;
+    border-radius: 50px; // Forma de cápsula
+    transition: all 0.2s ease;
+
+    &:hover {
+        border-color: #dee2e6;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .capsule-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #adb5bd;
+        margin-right: 10px;
+        letter-spacing: 0.5px;
+        border-right: 1px solid #dee2e6;
+        padding-right: 10px;
+    }
+}
+
+.clean-select {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #495057;
+    cursor: pointer;
+    appearance: none; // Quita la flecha por defecto
+    padding-right: 5px;
+
+    &:focus {
+        color: #212529;
+    }
+}
+
+.bi-chevron-down {
+    pointer-events: none;
+    color: #adb5bd;
+}
+
+
+.fav-toggle-btn {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 2px solid #eee;
+    background: white;
+    color: #6c757d;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    &:hover {
+        border-color: #ff4d4d;
+        color: #ff4d4d;
+        transform: translateY(-2px);
+    }
+
+    &.active {
+        background: #ff4d4d;
+        border-color: #ff4d4d;
+        color: white;
+        box-shadow: 0 4px 12px rgba(255, 77, 77, 0.3);
+    }
+
+    i {
+        font-size: 1.1rem;
+    }
+}
