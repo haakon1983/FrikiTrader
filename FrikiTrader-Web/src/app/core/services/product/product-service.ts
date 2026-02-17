@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { firstValueFrom, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { StorageService } from '../storage/storage';
@@ -22,7 +22,8 @@ export class ProductService {
       price: Number(productoData.precio), 
       categoryId: Number(productoData.categoryId),
       condition: Number(productoData.condition),
-      imageUrl: urlImagen 
+      imageUrl: urlImagen,
+
     };
 
     return firstValueFrom(this.http.post(this.productsUrl, payload));
@@ -36,8 +37,14 @@ export class ProductService {
     return this.http.get<any[]>(`${this.productsUrl}/conditions`);
   }
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.productsUrl);
+  getProducts(filtros?: any): Observable<Product[]> {
+    let params = new HttpParams();
+    if (filtros) {
+      if (filtros.categoryId) params = params.set('categoryId', filtros.categoryId);
+      if (filtros.order) params = params.set('order', filtros.order);
+      if (filtros.onlyFavorites) params = params.set('onlyFavorites', filtros.onlyFavorites);
+    }
+    return this.http.get<Product[]>(this.productsUrl, { params });
   }
 
   getProductById(id: number): Observable<Product> {

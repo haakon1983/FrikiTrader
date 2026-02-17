@@ -5,6 +5,8 @@
       <span class="product-count">{{productos().length}} artículos</span>
     </div>
 
+    <app-product-filters (filtersChange)="applicarFiltros($event)"></app-product-filters>
+
     <div *ngIf="loading()" class="text-center py-5">
       <div class="spinner-border text-primary" role="status"></div>
       <p class="mt-2">Cargando productos...</p>
@@ -17,8 +19,13 @@
     </div>
 
     <div *ngIf="!loading() && productos().length === 0" class="text-center py-5">
-      <p class="text-muted">Aún no hay nada por aquí. ¡Sé eñ primero en publicar!</p>
+      <div class="mb-3">
+        <i class="fas fa-search fa-3x text-muted"></i>
+        <p class="text-muted fs-5">No se encontraron productos con esos filtros.</p>
+        <p class="text-muted small">Intenta ajustar los filtros o busca en otra categoría.</p>
+      </div>
     </div>
+    
   </div>
   
 </main>

@@ -1,0 +1,28 @@
+<div class="row g-3 p-3 bg-white border rounded shadow-sm mb-4">
+
+    <div class="col-md-4">
+        <label class="small fw-bold text-muted">Categoría</label>
+        <select class="form-select" [(ngModel)]="filters.categoryId" (change)="applyFilters()">
+            <option value="">Todas</option>
+            <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="small fw-bold">Ordenar por precio</label>
+        <select class="form-select" [(ngModel)]="filters.order" (change)="applyFilters()">
+        <option value="newest">Novedades</option>
+        <option value="asc">Más barato primero</option>
+        <option value="desc">Más caro primero</option>
+        </select>
+    </div>
+
+    <div class="col-md-4 d-flex align-items-end">
+        <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" id="favs" 
+                [(ngModel)]="filters.onlyFavorites" (change)="applyFilters()">
+        <label class="form-check-label fw-bold" for="favs">Solo favoritos ❤️</label>
+        </div>
+    </div>
+
+</div>

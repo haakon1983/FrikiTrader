@@ -4,10 +4,11 @@ import { Product } from '../../shared/models/product-interface';
 import { ProductCard } from '../../shared/components/product-card/product-card';
 import { ProductService } from '../../core/services/product/product-service';
 import { RouterModule } from "@angular/router";
+import { ProductFilters } from '../../shared/components/product-filters/product-filters';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, ProductCard, RouterModule],
+  imports: [CommonModule, ProductCard, RouterModule, ProductFilters],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
@@ -20,7 +21,18 @@ export class Home implements OnInit{
   ngOnInit(): void {
     this.cargarProductos();
   }
-  
+
+  applicarFiltros(filtros: any) {
+    console.log('Filtros aplicados:', filtros);
+    this.productService.getProducts(filtros).subscribe({
+      next: (data) => {
+        this.productos.set(data);
+      },
+      error: (err) => console.error('Error al aplicar filtros', err)
+    });
+  }
+
+
   cargarProductos() {
     this.productService.getProducts().subscribe({
       next: (data) => {
