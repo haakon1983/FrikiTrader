@@ -17,6 +17,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 export class Home implements OnInit{
   productos = signal<Product[]>([]);
   loading = signal<boolean>(true);
+  paginaActual = 1;
+  hayMasProductos = signal<boolean>(true);
 
   private filtrosComponenteMemoria: any = {};
   private searchTermActual: string = '';
@@ -30,25 +32,35 @@ export class Home implements OnInit{
       distinctUntilChanged()
     ).subscribe(term => {
       this.searchTermActual = term || '';
-      this.ejecutarCargaConjunta();
+      this.ejecutarCargaConjunta(true);
     }); 
+    this.ejecutarCargaConjunta(true);
   }
 
   aplicarFiltros(filtros: any) {
     this.filtrosComponenteMemoria = filtros;
-    this.ejecutarCargaConjunta();
+    this.ejecutarCargaConjunta(true);
   }
 
-  ejecutarCargaConjunta() {
+  ejecutarCargaConjunta(reset: boolean = false) {
     this.loading.set(true);
+    if (reset) {
+      this.paginaActual = 1;
+    }
     const filtrosFinales = {
       ...this.filtrosComponenteMemoria,
-      searchTerm: this.searchTermActual
+      searchTerm: this.searchTermActual,
+      page: this.paginaActual,
+      pageSize: 12
     };
-    console.log('Cargando productos con filtros:', filtrosFinales);
     this.productService.getProducts(filtrosFinales).subscribe({
       next: (data) => {
-        this.productos.set(data);
+        if (reset){
+          this.productos.set(data);
+        } else {
+          this.productos.update(current => [...current, ...data]);
+        }
+        this.hayMasProductos.set(data.length === 12);
         this.loading.set(false);
       },
       error: (err) => {
@@ -57,18 +69,6 @@ export class Home implements OnInit{
       }
     });
   }
-
-
-  /*aplicarFiltros(filtros: any) {
-    console.log('Filtros aplicados:', filtros);
-    this.productService.getProducts(filtros).subscribe({
-      next: (data) => {
-        this.productos.set(data);
-      },
-      error: (err) => console.error('Error al aplicar filtros', err)
-    });
-  }*/
-
 
   cargarProductos() {
     this.productService.getProducts().subscribe({
@@ -83,6 +83,13 @@ export class Home implements OnInit{
     })
   }
 
+  verMas() {
+    this.paginaActual++;
+    this.ejecutarCargaConjunta(false);
+  }
 
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
 }

@@ -46,18 +46,35 @@
     gap: 10px;
     width: 100%;
     min-width: 300px;
+    position: relative;
 
     .search-icon {
         color: $ft-gold;
         margin-right: 10px;
     }
 
+    .search-input {
+        border: none;
+        background: transparent;
+        outline: none;
+        width: 100%;
+        font-size: 0.95rem;
+        color: black;
+        padding-right: 25px;
+
+        &::placeholder {
+            color: #9ca3af;
+        }
+    }
+
     .btn-clear-search {
         position: absolute;
-        right:12px;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
         background: none;
         border: none;
-        color: #abd5bd;
+        color: #9ca3af;
         font-size: 1.2rem;
         transition: color 0.2s;
         padding: 0;
@@ -68,21 +85,6 @@
             color: #fa3d04;
         }
     }
-
-    .search-input {
-        border: none;
-        background: transparent;
-        outline: none;
-        width: 100%;
-        font-size: 0.95rem;
-        color: black;
-
-        &::placeholder {
-            color: #9ca3af;
-        }
-    }
-
-    
 }
 
 //Estilo de Iconos y Avatar

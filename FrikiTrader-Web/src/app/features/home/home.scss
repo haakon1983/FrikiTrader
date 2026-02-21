@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use 'variables' as *;e 
+
 .main-content {
   min-height: calc(100vh - 150px); // Ajusta según la altura del header/footer
   padding: 20px 0;
@@ -18,4 +21,30 @@
   font-size: 0.85rem;
   font-weight: 600;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.end-catalog-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+
+  &::before, &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 193, 7, 0.3), transparent);
+    max-width: 150px;
+  }
+
+  i {
+    color: $ft-gold;
+    font-size: 1.2rem;
+    opacity: 0.7;
+  }
+}
+
+.text-gold {
+    color: $ft-gold !important;
+    font-weight: 600;
 }

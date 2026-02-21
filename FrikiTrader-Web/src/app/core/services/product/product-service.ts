@@ -43,9 +43,13 @@ export class ProductService {
       if (filtros.categoryId) params = params.set('categoryId', filtros.categoryId);
       if (filtros.order) params = params.set('order', filtros.order);
       if (filtros.onlyFavorites) params = params.set('onlyFavorites', filtros.onlyFavorites);
-  
       if (filtros.searchTerm && filtros.searchTerm !== 'undefined') params = params.set('searchTerm', filtros.searchTerm);
     }
+
+    const page = filtros.page || 1;
+    const pageSize = filtros.pageSize || 12;
+    params = params.set('page', page.toString());
+    params = params.set('pageSize', pageSize.toString());
     return this.http.get<Product[]>(this.productsUrl, { params });
   }
 

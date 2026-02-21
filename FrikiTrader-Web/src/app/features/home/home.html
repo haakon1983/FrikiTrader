@@ -7,7 +7,7 @@
 
     <app-product-filters (filtersChange)="aplicarFiltros($event)"></app-product-filters>
 
-    <div *ngIf="loading()" class="text-center py-5">
+    <div *ngIf="loading() && productos().length === 0" class="text-center py-5">
       <div class="spinner-border text-primary" role="status"></div>
       <p class="mt-2">Cargando productos...</p>
     </div>
@@ -18,12 +18,36 @@
       </div>
     </div>
 
+    <div *ngIf="hayMasProductos() && productos().length > 0" class="text-center mt-5">
+      <button class="btn-vender" (click)="verMas()" [disabled]="loading()">
+        <span *ngIf="!loading()">
+          <i class="bi bi-plus-circle me-2"></i> Vermás productos
+        </span>
+        <span *ngIf="loading()">
+          <span class="spinner-border spinner-border-sm me-2"></span>Cargando...
+        </span>
+      </button>
+    </div>
+
     <div *ngIf="!loading() && productos().length === 0" class="text-center py-5">
       <div class="mb-3">
         <i class="fas fa-search fa-3x text-muted"></i>
         <p class="text-muted fs-5">No se encontraron productos con esos filtros.</p>
         <p class="text-muted small">Intenta ajustar los filtros o busca en otra categoría.</p>
       </div>
+    </div>
+
+    <div *ngIf="!hayMasProductos() && productos().length > 0" class="text-center py-5">
+      <div class="end-catalog-divider">
+        <i class="bi bi-controller mx-3"></i>
+        <span class="text-muted small fw-bold text-uppercase">Has llegado al final del catálogo</span>
+        <i class="bi bi-controller mx-3"></i>
+      </div>
+      <p class="text-muted mt-2">¿No encuentras lo que buscas? ¡Prueba a cambiar los filtros!</p>
+  
+      <button (click)="scrollToTop()" class="btn btn-link text-decoration-none text-gold mt-2">
+        <i class="bi bi-arrow-up-circle"></i> Volver al principio
+      </button>
     </div>
     
   </div>
