@@ -41,7 +41,9 @@ namespace FrikiTrader.API.Controllers
             [FromQuery] int? categoryId, 
             [FromQuery] string? order, 
             [FromQuery] bool onlyFavorites = false,
-            [FromQuery] string? searchTerm = null
+            [FromQuery] string? searchTerm = null,
+            [FromQuery] int page = 1,
+            [FromQuery] int PageSize = 12
             )
         {
             int? currentUserId = null;
@@ -51,7 +53,7 @@ namespace FrikiTrader.API.Controllers
                 currentUserId = int.Parse(userIdClaim.Value);
             }
 
-            var products = await _productService.GetAllAsync(categoryId, order, onlyFavorites, currentUserId, searchTerm);
+            var products = await _productService.GetAllAsync(categoryId, order, onlyFavorites, currentUserId, searchTerm, page, PageSize);
 
             return Ok(products);
 
