@@ -37,11 +37,17 @@ namespace FrikiTrader.Aplication.Services
             return product;
         }
 
-        public async Task<IEnumerable<Product>> GetAllAsync(int? categoryId, string? order, bool onlyFavorites,  int? currentUserId)
+        public async Task<IEnumerable<Product>> GetAllAsync(int? categoryId, string? order, bool onlyFavorites,  int? currentUserId, string? searchTerm)
         {
             var query =  _context.Products
                 .Where(p => p.Status == ProductStatus.Disponible) // Solo productos disponibles
                 .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                searchTerm = searchTerm.ToLower();
+                query = query.Where(p => p.Title.ToLower().Contains(searchTerm) || p.Description.ToLower().Contains(searchTerm));
+            }
 
             if (categoryId.HasValue && categoryId > 0)
             {

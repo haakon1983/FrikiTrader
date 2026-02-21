@@ -37,7 +37,12 @@ namespace FrikiTrader.API.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<Product>>> GetAll([FromQuery] int? categoryId, [FromQuery] string? order, [FromQuery] bool onlyFavorites = false)
+        public async Task<ActionResult<IEnumerable<Product>>> GetAll(
+            [FromQuery] int? categoryId, 
+            [FromQuery] string? order, 
+            [FromQuery] bool onlyFavorites = false,
+            [FromQuery] string? searchTerm = null
+            )
         {
             int? currentUserId = null;
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
@@ -46,7 +51,7 @@ namespace FrikiTrader.API.Controllers
                 currentUserId = int.Parse(userIdClaim.Value);
             }
 
-            var products = await _productService.GetAllAsync(categoryId, order, onlyFavorites, currentUserId);
+            var products = await _productService.GetAllAsync(categoryId, order, onlyFavorites, currentUserId, searchTerm);
 
             return Ok(products);
 
