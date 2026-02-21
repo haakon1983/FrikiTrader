@@ -5,7 +5,7 @@
       <span class="product-count">{{productos().length}} artículos</span>
     </div>
 
-    <app-product-filters (filtersChange)="applicarFiltros($event)"></app-product-filters>
+    <app-product-filters (filtersChange)="aplicarFiltros($event)"></app-product-filters>
 
     <div *ngIf="loading()" class="text-center py-5">
       <div class="spinner-border text-primary" role="status"></div>

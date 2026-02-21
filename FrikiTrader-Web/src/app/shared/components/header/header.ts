@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule} from "@angular/router";
 import { Router,RouterLink } from "@angular/router";
 import { AuthService } from '../../services/auth/auth';
+import { SearchService } from '../../../core/services/search/search-service';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { AuthService } from '../../services/auth/auth';
   styleUrl: './header.scss',
 })
 export class Header {
-  //currentUser = this.authService.currentUser;
+  private searchService = inject(SearchService);
   constructor(private router: Router, public authService: AuthService) {}
 
   isLoggedIn(): boolean {
@@ -29,4 +30,16 @@ export class Header {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
+  onSearch(termino: string) {
+    
+    this.searchService.updateSearch(termino);
+  } 
+
+  clearSearch(input: HTMLInputElement) {
+    input.value = '';
+    this.onSearch('');
+    input.focus();
+  }
+  
 }

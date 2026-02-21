@@ -10,7 +10,11 @@
         <div class="header-center d-none d-lg-block flex-grow-1 mx-5">
             <div class="search-bar">
                 <i class="bi bi-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Busca tus productos favoritos..." />
+                <input type="text" #txtSearch (keyup)="onSearch(txtSearch.value)" class="search-input" placeholder="Busca tus productos favoritos..." />
+
+                <button *ngIf="txtSearch.value" class="btn-clear-search" (click)="clearSearch(txtSearch)">
+                    <i class="bi bi-x-circle-fill"></i>
+                </button>
             </div>   
         </div>
 
