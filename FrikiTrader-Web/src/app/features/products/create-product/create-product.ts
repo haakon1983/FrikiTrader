@@ -35,23 +35,45 @@ export class CreateProduct implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.cargarSelects();
-
     const id = this.route.snapshot.paramMap.get('id');
+
     if (id) {
       this.idProducto = +id;
       this.editionMode = true;
-      this.loadProductData(this.idProducto); 
+      this.loadAllForEdition(this.idProducto);
+    } else {
+      this.cargarSelects();
     }
   }
+
+    loadAllForEdition(id: number) {
+      this.productService.getCategories().subscribe(cats => {
+        this.categorias.set(cats);
+    
+      this.productService.getConditions().subscribe(conds => {
+        this.estados.set(conds);
+        this.loadProductData(id); 
+      });
+    });
+  }
+  
+
 
   loadProductData(id: number) {
     this.productService.getProductById(id).subscribe({
       next: (data) => {
+        const conditionId: any ={
+          'New': 1,
+          'LikeNew': 2,
+          'Used': 3,
+          'ForParts': 4
+        };
+          const estadoId = typeof data.condition === 'string' ? conditionId[data.condition] : data.condition;
+
         this.productForm.patchValue({
           nombre: data.title,
           precio: data.price,
-          condition: data.condition,
+          condition: estadoId,
           categoryId: data.categoryId,
           description: data.description
         });
@@ -80,9 +102,9 @@ export class CreateProduct implements OnInit {
   }
 
   async onSubmit() {
-    const imageEdition = !this.editionMode && !this.selectedFile;
-    if (this.productForm.invalid || imageEdition) {
-      Swal.fire ("Por favor, rellena todos los campos" + (imageEdition ? " y sube una imagen" : ""));
+    const faltaImagen = !this.editionMode && !this.selectedFile;
+    if (this.productForm.invalid || faltaImagen) {
+      Swal.fire ("Por favor, rellena todos los campos" + (faltaImagen ? " y sube una imagen" : ""));
       return;
     }
     const confirmacion = await Swal.fire({
@@ -120,7 +142,11 @@ export class CreateProduct implements OnInit {
           timer: 2000,
           showConfirmButton: false
         })
-        this.router.navigate(['/home']); 
+        if (this.editionMode) {
+          this.router.navigate(['/perfil']);
+        } else {
+          this.router.navigate(['/home']);
+        }
       } catch (error) {
         console.error("Error al guardar:", error);
         Swal.fire('Error', 'Hubo un problema al guardar los datos del artículo.', 'error')
@@ -131,7 +157,15 @@ export class CreateProduct implements OnInit {
   }
 
     goBack(): void {
-      this.router.navigate(['/home']);
+      if (this.editionMode) {
+        this.router.navigate(['/perfil']);
+      } else {
+        this.router.navigate(['/home']);
+      }
     }
     
+}
+
+function loadAllForEdition(id: string | null, number: any) {
+  throw new Error('Function not implemented.');
 }

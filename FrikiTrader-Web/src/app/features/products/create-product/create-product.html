@@ -4,7 +4,8 @@
 
       <div class="mb-4">
         <button class="btn btn-link text-decoration-none p-0 text-dark fw-bold" (click)="goBack()">
-          <i class="bi bi-arrow-left-short fs-4"></i> Volver al inicio
+          <i class="bi bi-arrow-left-short fs-4"></i> 
+          {{ editionMode ? 'Volver al perfil' : 'Volver al inicio' }}
         </button>
       </div>
       
@@ -27,7 +28,9 @@
       </div>
 
       <div class="col-lg-7 p-4 p-md-5 bg-white">
-        <h2 class="mb-4 fw-bold border-bottom pb-2">Vender Artículo</h2>
+        <h2 class="mb-4 fw-bold border-bottom pb-2">
+          {{ editionMode ? 'Editar Artículo' : 'Vender Artículo' }}
+        </h2>
         
         <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
           <div class="row">
@@ -69,8 +72,9 @@
             </div>
 
             <div class="col-12">
-              <button type="submit" [disabled]="productForm.invalid || loading || !selectedFile" class="btn btn-primary btn-lg w-100 shadow">
-                <span *ngIf="!loading">Publicar en FrikiTrader</span>
+              <button type="submit" [disabled]="productForm.invalid || loading" class="btn btn-primary btn-lg w-100 shadow">
+                <span *ngIf="!loading">
+                  {{ editionMode ? 'Guardar cambios' : 'Publicar en FrikiTrader' }}</span>
                 <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
               </button>
             </div>
