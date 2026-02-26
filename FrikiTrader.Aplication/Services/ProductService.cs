@@ -140,5 +140,13 @@ namespace FrikiTrader.Aplication.Services
                 throw new Exception("Producto no encontrado");
             }
         }
+
+        public async Task <IEnumerable<Product>> GetByUserIdAsync(int userId)
+        {
+            return await _context.Products
+                .Where(p => p.UserId == userId)
+                .OrderByDescending(p => p.Id) // Mostrar los productos más recientes primero
+                .ToListAsync();
+        }
     }
 }

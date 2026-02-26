@@ -38,8 +38,8 @@ namespace FrikiTrader.API.Controllers
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Product>>> GetAll(
-            [FromQuery] int? categoryId, 
-            [FromQuery] string? order, 
+            [FromQuery] int? categoryId,
+            [FromQuery] string? order,
             [FromQuery] bool onlyFavorites = false,
             [FromQuery] string? searchTerm = null,
             [FromQuery] int page = 1,
@@ -148,6 +148,19 @@ namespace FrikiTrader.API.Controllers
             product.Status = ProductStatus.Vendido;
             await _productService.UpdateStatusAsync(id, product.Status);
             return Ok(new { message = "Producto comprado exitosamente." });
+
+        }
+
+        [HttpGet("me")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<Product>>> GetMyProducts()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized(new { message = "Usuario no autenticado." });
+
+            var userId = int.Parse(userIdClaim.Value);
+            var products = await _productService.GetByUserIdAsync(userId);
+            return Ok(products);
 
         }
     }

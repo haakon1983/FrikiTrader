@@ -16,6 +16,6 @@ namespace FrikiTrader.Aplication.Interfaces
         Task<bool> UpdateAsync(int id, ProductCreateDto dto, int userId);
         Task<bool> DeleteAsync(int id, int userId);
         Task UpdateStatusAsync(int id, ProductStatus status);
-       
+        Task <IEnumerable<Product>> GetByUserIdAsync(int userId);
     }
 }
