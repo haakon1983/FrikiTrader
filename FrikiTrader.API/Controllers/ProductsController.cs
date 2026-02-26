@@ -72,7 +72,7 @@ namespace FrikiTrader.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] ProductCreateDto dto)
+        public async Task<IActionResult> Update(int id, [FromForm] ProductCreateDto dto)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             var product = await _productService.GetByIdAsync(id);
