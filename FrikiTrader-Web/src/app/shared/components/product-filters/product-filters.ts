@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, inject } from '@angular/core';
+import { Component, Output, EventEmitter, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../../core/services/product/product-service';
@@ -35,6 +35,9 @@ export class ProductFilters {
   toggleFavorites() {
   this.filters.onlyFavorites = !this.filters.onlyFavorites;
   this.applyFilters();
-}
+  }
+
+  @Input() isMine: boolean = false;
+  @Output() onDelete = new EventEmitter<number>();
 
 }

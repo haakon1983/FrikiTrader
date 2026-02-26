@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../models/product-interface';
 import { RouterLink } from "@angular/router";
 import { RouterModule } from '@angular/router';
@@ -44,7 +44,7 @@ export class ProductCard {
   };
   // Si el ID existe en el mapa, devuelve el nombre. Si no, devuelve 'General'
   return categories[categoryId] || 'General';
-}
+  }
 
   toggleFavorite(event: Event) {
     event.stopPropagation();
@@ -71,5 +71,8 @@ export class ProductCard {
       });
     }
   }
+
+  @Input() isMine: boolean = false;
+  @Output() onDelete = new EventEmitter<number>();
 
 }

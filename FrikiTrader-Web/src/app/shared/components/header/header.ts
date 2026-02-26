@@ -32,7 +32,6 @@ export class Header {
   }
 
   onSearch(termino: string) {
-    
     this.searchService.updateSearch(termino);
   } 
 

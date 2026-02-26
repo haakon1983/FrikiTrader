@@ -1,0 +1,30 @@
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="section-title">Mis Productos</h2>
+        <span class="badge bg-gold text-dark p-2">{{ misProductos().length }} subidos</span>
+    </div>
+
+    <hr class="mb-5 opacity-10">
+
+    <div *ngIf="loading()" class="text-center py-5">
+        <div class="spinner-border text-gold" role="status"></div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" *ngIf="!loading() && misProductos().length > 0">
+        <div class="col" *ngFor="let p of misProductos()">
+        <app-product-card 
+            [product]="p" 
+            [isMine]="true" 
+            (onDelete)="eliminarProducto($event)">
+        </app-product-card>
+        </div>
+    </div>
+
+    <div *ngIf="!loading() && misProductos().length === 0" class="text-center py-5">
+        <i class="bi bi-box-seam display-1 text-muted"></i>
+        <p class="fs-4 mt-3">Aún no has subido ningún producto.</p>
+        <button routerLink="/vender" class="btn-vender mt-3">
+            ¡Subir mi primer producto!
+        </button>
+    </div>
+</div>

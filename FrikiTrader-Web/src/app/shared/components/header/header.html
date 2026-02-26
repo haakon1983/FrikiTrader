@@ -1,7 +1,7 @@
 <header class="main-header sticky-top">
     <div class="container header-container">
         <div class="header-left">
-            <a routerLink="/" class="brand">
+            <a routerLink="/home" class="brand">
                 <i class="bi bi-controller brand-icon"></i>
                 <span class="brand-text">FrikiTrader</span>
             </a>
@@ -27,15 +27,14 @@
             <button class="btn-icon">
                 <i class="bi bi-bell"></i>
             </button>
+
             <div class="user-profile ms-2" *ngIf="authService.currentUser() as user">
-                <div class="use-info-wrapper d-flex align-items-center">
+                <div class="use-info-wrapper d-flex align-items-center" [routerLink]="['/perfil']" style="cursor: pointer;">
                     <span class="usernem-text me-2 d-none d-sm-block">{{ user.userName }} </span>
                         <img [src]="user.avatar || 'https://ui-avatars.com/api/?name=' + user.userName + '&background=6366f1&color=fff'"
                         alt="Perfil"
                         class="avatar">
                 </div>
-                
-                
             </div>
 
             <button *ngIf="isLoggedIn()"  (click)="logout()" class="btn-logout-minimal" title="Cerrar Sesión">

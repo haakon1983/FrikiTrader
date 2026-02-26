@@ -60,4 +60,26 @@ export class ProductService {
   buyProduct(id: number): Observable<any> {
     return this.http.patch(`${this.productsUrl}/${id}/buy`, {});
   }
+
+  getMyProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.productsUrl}/me`);
+  }
+
+  deleteProduct(id: number): Observable<any> {
+    return this.http.delete(`${this.productsUrl}/${id}`);
+  }
+
+  editarProducto(id: number, productoData: any, file: File| null): Promise<any> {
+    const formData = new FormData();
+    formData.append('title', productoData.nombre);
+    formData.append('description', productoData.description);
+    formData.append('price', productoData.precio.toString());
+    formData.append('categoryId', productoData.categoryId.toString());
+    formData.append('condition', productoData.condition.toString());
+    if (file) {
+      formData.append('image', file);
+    }
+    return firstValueFrom(this.http.put(`${this.productsUrl}/${id}`, formData));
+  }
+  
 }

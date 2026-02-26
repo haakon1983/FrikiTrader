@@ -27,7 +27,7 @@ export class AuthService {
       tap((response: any) => {
         console.log('Respuesta del servidor:', response);
         if (response && response.token) {
-          localStorage.setItem('token', response.token); // Guardamos el token en localStorage
+          localStorage.setItem('ft_token', response.token); // Guardamos el token en localStorage
           const decoded = this.decodeToken(response.token);
           if (decoded) {
             const userData = {
@@ -53,7 +53,7 @@ export class AuthService {
     
     if (decoded) {
       this.currentUser.set({
-        username: decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] || decoded["unique_name"],
+        userName: decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] || decoded["unique_name"],
         avatar: decoded["ProfilePictureUrl"] // El claim que añadimos en C#
       });
     }
