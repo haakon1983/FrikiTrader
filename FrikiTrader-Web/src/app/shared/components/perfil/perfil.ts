@@ -4,6 +4,7 @@ import { ProductService } from '../../../core/services/product/product-service';
 import { Product } from '../../models/product-interface';
 import { ProductCard } from '../product-card/product-card';
 import Swal from 'sweetalert2';
+import { StorageService } from '../../../core/services/storage/storage';
 
 @Component({
   selector: 'app-perfil',
@@ -15,6 +16,7 @@ export class Perfil implements OnInit {
   private productService = inject(ProductService);
   misProductos =signal<Product[]>([]);
   loading = signal(true);
+  private storageService = inject(StorageService);
 
   ngOnInit(): void {
     this.cargarMisProductos();
@@ -34,7 +36,8 @@ export class Perfil implements OnInit {
     });
   } 
 
-  eliminarProducto(id: number) {
+  async eliminarProducto(id: number) {
+    const deleteIdProduct = this.misProductos().find(p => p.id === id);
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'No podrás revertir esto',
@@ -42,8 +45,17 @@ export class Perfil implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar'
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
+        //Borramos la imagen de Firebase antes de eliminar el producto
+        if (deleteIdProduct?.imageUrl) {
+          try {
+            await this.storageService.deleteImageByUrl(deleteIdProduct.imageUrl);
+          }catch (error) {
+            console.error('Error al eliminar imagen de Firebase:', error);
+          }
+        }
+        //Luego eliminamos el producto de la base de datos
         this.productService.deleteProduct(id).subscribe({
           next: () => {
             this.misProductos.update(data => data.filter(p => p.id !== id));
