@@ -4,13 +4,14 @@ import { RouterOutlet } from '@angular/router';
 import { Router } from "@angular/router";
 import { Header} from './shared/components/header/header';
 import { Footer } from './shared/components/footer/footer';
+import { CreateProduct } from "./features/products/create-product/create-product";
 
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule,RouterOutlet,Header, Footer],
+  imports: [CommonModule, RouterOutlet, Header, Footer, CreateProduct],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
