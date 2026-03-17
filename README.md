@@ -10,7 +10,7 @@ El repositorio se divide en tres grandes bloques desacoplados:
 
 * **`/FrikiTrader-Backend`**: API RESTful construida con **.NET 8** siguiendo una arquitectura de 4 capas (Domain, Application, Infrastructure, API).
 * **`/FrikiTrader-Web`**: Cliente Single Page Application (SPA) desarrollado con **Angular 18**, utilizando **Signals** para la gestión de estado.
-* **`/FrikiTrader-Database`**: Contiene el script de exportación de MySQL con la estructura y datos de prueba.
+* **`FrikiTrader-Backend/FrikiTrader-Database`**: Contiene el script de exportación de MySQL con la estructura y datos de prueba.
 
 ---
 
