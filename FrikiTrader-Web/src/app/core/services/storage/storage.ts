@@ -32,9 +32,8 @@ export class StorageService {
 
   async deleteImageByUrl(imageUrl: string): Promise<void> {
     try{
-      const storage = getStorage();
       //creams una referencia a la imagen usando su URL
-      const imageRef = ref(storage, imageUrl);
+      const imageRef = ref(this.storage, imageUrl);
       await deleteObject(imageRef);
       console.log('Imagen eliminada de Firebase');
 
