@@ -7,6 +7,7 @@ import { RouterModule } from "@angular/router";
 import { ProductFilters } from '../../shared/components/product-filters/product-filters';
 import { SearchService } from '../../core/services/search/search-service';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { AuthService } from '../../shared/services/auth/auth';
 
 @Component({
   selector: 'app-home',
@@ -24,9 +25,13 @@ export class Home implements OnInit{
   private searchTermActual: string = '';
   private searchService = inject(SearchService);
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    public authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    this.authService.getToken(); //Al refrescar pagina, forzamos a que verifique la sesión por si acaso.
     this.searchService.currentSearch.pipe(
       debounceTime(300),
       distinctUntilChanged()

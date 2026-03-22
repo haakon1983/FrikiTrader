@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem('ft_token');
   }
 
   private checkSession() {
@@ -61,6 +61,7 @@ export class AuthService {
 }
 
   logout(): void {
+    localStorage.removeItem('ft_token');//Al cerrar sesión borramos el token.
     this.currentUser.set(null);
   }
 
