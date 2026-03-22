@@ -5,10 +5,11 @@ import { Product } from '../../models/product-interface';
 import { ProductCard } from '../product-card/product-card';
 import Swal from 'sweetalert2';
 import { StorageService } from '../../../core/services/storage/storage';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
-  imports: [CommonModule, ProductCard],
+  imports: [CommonModule, ProductCard, RouterLink],
   templateUrl: './perfil.html',
   styleUrl: './perfil.scss',
 })
